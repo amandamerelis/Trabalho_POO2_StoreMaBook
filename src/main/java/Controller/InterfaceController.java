@@ -69,6 +69,10 @@ public class InterfaceController {
         }
         //</editor-fold>
         
+        //TRADUÇÃO DOS BOTÕES "SIM" E "NÃO" DO OPTIONPANE
+        javax.swing.UIManager.put("OptionPane.yesButtonText", "Sim");
+        javax.swing.UIManager.put("OptionPane.noButtonText", "Não");
+        
         InterfaceController interfaceController = new InterfaceController();
         interfaceController.abrirJanelaPrincipal();
     }
