@@ -1,6 +1,6 @@
 package Controller;
 
-import Interface.DlgCadastroLeitura;
+import Interface.DlgDadosLeitura;
 import Interface.MainFrame;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class InterfaceController {
 
     private MainFrame janelaPrincipal = null;
-    private DlgCadastroLeitura janelaCadastroLeitura = null;
+    private DlgDadosLeitura janelaCadastroLeitura = null;
 
     public InterfaceController() {
 
@@ -21,7 +21,6 @@ public class InterfaceController {
             janelaPrincipal = new MainFrame(this);
             janelaPrincipal.setVisible(true);
         }
-
     }
 
     // ABRIR JDIALOG
@@ -37,10 +36,19 @@ public class InterfaceController {
         return dlg;
     }
 
-    public void abrirCadastroLeitura() {
-        janelaCadastroLeitura = (DlgCadastroLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgCadastroLeitura.class);
-
+    public void abrirCadastroLeitura(boolean modo) {
+        janelaCadastroLeitura = (DlgDadosLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgDadosLeitura.class);
+//        if(modo){
+//            janelaCadastroLeitura.modoCadastroDeLeitura();
+//        } else {
+            janelaCadastroLeitura.modoVisualizarDados();
+        //}
     }
+    
+//    public void abrirVisualizarLeitura() {
+//        janelaCadastroLeitura = (DlgDadosLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgDadosLeitura.class);
+//        
+//    }
 
     /**
      * @param args the command line arguments

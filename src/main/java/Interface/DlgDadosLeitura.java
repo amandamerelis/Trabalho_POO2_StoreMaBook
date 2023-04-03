@@ -1,21 +1,55 @@
 package Interface;
 
 import Controller.InterfaceController;
-import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
-public class DlgCadastroLeitura extends javax.swing.JDialog {
+public class DlgDadosLeitura extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
 
-    public DlgCadastroLeitura(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
+    public DlgDadosLeitura(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
         super(parent, modal);
         this.interfaceController = interfaceController;
         initComponents();
         popularComboBoxes();
+//        lblTituloDaPagina.setText("Novo cadastro de leitura");
+//        txtTitulo.setEnabled(true);
+//        txtAutor.setEnabled(true);
+//        comboBoxGenero.setEnabled(true);
+//        comboBoxStatus.setEnabled(true);
+//        comboBoxAvaliacao.setEnabled(false);
+//        txtAreaSinopse.setEnabled(true);
+//        txtAreaComentario.setEnabled(true);
+//        btnSalvar.setEnabled(true);
+//        btnEditar.setVisible(false);
     }
-
+    
+    public void modoCadastroDeLeitura(){
+        lblTituloDaPagina.setText("Novo cadastro de leitura");
+        txtTitulo.setEnabled(true);
+        txtAutor.setEnabled(true);
+        comboBoxGenero.setEnabled(true);
+        comboBoxStatus.setEnabled(true);
+        comboBoxAvaliacao.setEnabled(false);
+        txtAreaSinopse.setEnabled(true);
+        txtAreaComentario.setEnabled(true);
+        btnSalvar.setEnabled(true);
+        btnEditar.setVisible(false);
+    }
+    
+    public void modoVisualizarDados(){
+        lblTituloDaPagina.setText("Visualizar dados da leitura");
+        txtTitulo.setEnabled(false);
+        txtAutor.setEnabled(false);
+        comboBoxGenero.setEnabled(false);
+        comboBoxStatus.setEnabled(false);
+        comboBoxAvaliacao.setEnabled(false);
+        txtAreaSinopse.setEnabled(false);
+        txtAreaComentario.setEnabled(false);
+        btnSalvar.setVisible(false);
+        btnEditar.setVisible(true);
+    }
+    
     private void popularComboBoxes() {
         DefaultComboBoxModel model;
         String[] generos = new String[]{"Conto", "Fantasia", "Infantil", "Não ficção", "Romance", "Sci-Fi", "Terror"};
@@ -65,16 +99,22 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
         pnlAvaliacao = new javax.swing.JPanel();
         lblAvaliacao = new javax.swing.JLabel();
         comboBoxAvaliacao = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        pnlSinopse = new javax.swing.JPanel();
+        lblSinopse = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaSinopse = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         lblTituloDaPagina = new javax.swing.JLabel();
         campoObrigatorio4 = new javax.swing.JLabel();
+        pnlComentario = new javax.swing.JPanel();
+        lblComentario = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaComentario = new javax.swing.JTextArea();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Store MaBook - Cadastro de nova leitura");
+        setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTitulo.setText("Título");
@@ -189,6 +229,11 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
         lblStatus.setText("Status da leitura");
 
         comboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxStatusActionPerformed(evt);
+            }
+        });
 
         campoObrigatorio3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         campoObrigatorio3.setForeground(new java.awt.Color(204, 0, 51));
@@ -246,33 +291,33 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlSinopse.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Comentários");
+        lblSinopse.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblSinopse.setText("Sinopse");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAreaSinopse.setColumns(20);
+        txtAreaSinopse.setRows(5);
+        jScrollPane1.setViewportView(txtAreaSinopse);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlSinopseLayout = new javax.swing.GroupLayout(pnlSinopse);
+        pnlSinopse.setLayout(pnlSinopseLayout);
+        pnlSinopseLayout.setHorizontalGroup(
+            pnlSinopseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSinopseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                .addGroup(pnlSinopseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSinopseLayout.createSequentialGroup()
+                        .addComponent(lblSinopse)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlSinopseLayout.setVerticalGroup(
+            pnlSinopseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSinopseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblSinopse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                 .addContainerGap())
@@ -293,6 +338,47 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
         campoObrigatorio4.setForeground(new java.awt.Color(204, 0, 51));
         campoObrigatorio4.setText("* Campos obrigatórios");
 
+        pnlComentario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        lblComentario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblComentario.setText("Comentários");
+
+        txtAreaComentario.setColumns(20);
+        txtAreaComentario.setRows(5);
+        jScrollPane2.setViewportView(txtAreaComentario);
+
+        javax.swing.GroupLayout pnlComentarioLayout = new javax.swing.GroupLayout(pnlComentario);
+        pnlComentario.setLayout(pnlComentarioLayout);
+        pnlComentarioLayout.setHorizontalGroup(
+            pnlComentarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlComentarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlComentarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlComentarioLayout.createSequentialGroup()
+                        .addComponent(lblComentario)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
+        );
+        pnlComentarioLayout.setVerticalGroup(
+            pnlComentarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlComentarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblComentario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 153, 0));
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -302,7 +388,6 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(pnlGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
@@ -312,11 +397,16 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(pnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                .addComponent(pnlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(pnlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pnlSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pnlComentario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(lblTituloDaPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(campoObrigatorio4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -327,8 +417,10 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addComponent(lblTituloDaPagina)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTituloDaPagina)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,7 +431,9 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
                     .addComponent(pnlStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlAvaliacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlComentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSalvar)
@@ -358,8 +452,22 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void comboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatusActionPerformed
+        if(comboBoxStatus.getSelectedItem() == "Concluída"){
+            comboBoxAvaliacao.setEnabled(true);
+        }
+        else{
+            comboBoxAvaliacao.setEnabled(false);
+        }
+    }//GEN-LAST:event_comboBoxStatusActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel campoObrigatorio;
     private javax.swing.JLabel campoObrigatorio1;
@@ -369,21 +477,25 @@ public class DlgCadastroLeitura extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comboBoxAvaliacao;
     private javax.swing.JComboBox<String> comboBoxGenero;
     private javax.swing.JComboBox<String> comboBoxStatus;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAutor;
     private javax.swing.JLabel lblAvaliacao;
+    private javax.swing.JLabel lblComentario;
     private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblSinopse;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloDaPagina;
     private javax.swing.JPanel pnlAutor;
     private javax.swing.JPanel pnlAvaliacao;
+    private javax.swing.JPanel pnlComentario;
     private javax.swing.JPanel pnlGenero;
+    private javax.swing.JPanel pnlSinopse;
     private javax.swing.JPanel pnlStatus;
     private javax.swing.JPanel pnlTitulo;
+    private javax.swing.JTextArea txtAreaComentario;
+    private javax.swing.JTextArea txtAreaSinopse;
     private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
