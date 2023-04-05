@@ -1,6 +1,7 @@
 package Controller;
 
 import Interface.DlgDadosLeitura;
+import Interface.DlgVisualizarDetalhes;
 import Interface.MainFrame;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
@@ -11,11 +12,11 @@ public class InterfaceController {
 
     private MainFrame janelaPrincipal = null;
     private DlgDadosLeitura janelaCadastroLeitura = null;
+    private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
 
-    public InterfaceController() {
-
+    private InterfaceController() {
     }
-
+    
     public void abrirJanelaPrincipal() {
         if (janelaPrincipal == null) {
             janelaPrincipal = new MainFrame(this);
@@ -36,19 +37,13 @@ public class InterfaceController {
         return dlg;
     }
 
-    public void abrirCadastroLeitura(boolean modo) {
+    public void abrirCadastroLeitura() {
         janelaCadastroLeitura = (DlgDadosLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgDadosLeitura.class);
-//        if(modo){
-//            janelaCadastroLeitura.modoCadastroDeLeitura();
-//        } else {
-            janelaCadastroLeitura.modoVisualizarDados();
-        //}
     }
-    
-//    public void abrirVisualizarLeitura() {
-//        janelaCadastroLeitura = (DlgDadosLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgDadosLeitura.class);
-//        
-//    }
+
+    public void abrirVisualizarLeitura() {
+        janelaVisualizarLeitura = (DlgVisualizarDetalhes) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgVisualizarDetalhes.class);
+    }
 
     /**
      * @param args the command line arguments
@@ -76,11 +71,11 @@ public class InterfaceController {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //TRADUÇÃO DOS BOTÕES "SIM" E "NÃO" DO OPTIONPANE
         javax.swing.UIManager.put("OptionPane.yesButtonText", "Sim");
         javax.swing.UIManager.put("OptionPane.noButtonText", "Não");
-        
+
         InterfaceController interfaceController = new InterfaceController();
         interfaceController.abrirJanelaPrincipal();
     }

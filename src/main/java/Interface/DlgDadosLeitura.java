@@ -12,42 +12,7 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         this.interfaceController = interfaceController;
         initComponents();
         popularComboBoxes();
-//        lblTituloDaPagina.setText("Novo cadastro de leitura");
-//        txtTitulo.setEnabled(true);
-//        txtAutor.setEnabled(true);
-//        comboBoxGenero.setEnabled(true);
-//        comboBoxStatus.setEnabled(true);
-//        comboBoxAvaliacao.setEnabled(false);
-//        txtAreaSinopse.setEnabled(true);
-//        txtAreaComentario.setEnabled(true);
-//        btnSalvar.setEnabled(true);
-//        btnEditar.setVisible(false);
-    }
-    
-    public void modoCadastroDeLeitura(){
-        lblTituloDaPagina.setText("Novo cadastro de leitura");
-        txtTitulo.setEnabled(true);
-        txtAutor.setEnabled(true);
-        comboBoxGenero.setEnabled(true);
-        comboBoxStatus.setEnabled(true);
         comboBoxAvaliacao.setEnabled(false);
-        txtAreaSinopse.setEnabled(true);
-        txtAreaComentario.setEnabled(true);
-        btnSalvar.setEnabled(true);
-        btnEditar.setVisible(false);
-    }
-    
-    public void modoVisualizarDados(){
-        lblTituloDaPagina.setText("Visualizar dados da leitura");
-        txtTitulo.setEnabled(false);
-        txtAutor.setEnabled(false);
-        comboBoxGenero.setEnabled(false);
-        comboBoxStatus.setEnabled(false);
-        comboBoxAvaliacao.setEnabled(false);
-        txtAreaSinopse.setEnabled(false);
-        txtAreaComentario.setEnabled(false);
-        btnSalvar.setVisible(false);
-        btnEditar.setVisible(true);
     }
     
     private void popularComboBoxes() {
@@ -110,7 +75,6 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         lblComentario = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaComentario = new javax.swing.JTextArea();
-        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Store MaBook - Cadastro de nova leitura");
@@ -370,15 +334,6 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEditar.setForeground(new java.awt.Color(255, 153, 0));
-        btnEditar.setText("EDITAR");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -405,8 +360,7 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(lblTituloDaPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(campoObrigatorio4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -417,10 +371,8 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblTituloDaPagina)
-                    .addComponent(btnEditar))
+                .addGap(13, 13, 13)
+                .addComponent(lblTituloDaPagina)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -461,13 +413,8 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_comboBoxStatusActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel campoObrigatorio;
     private javax.swing.JLabel campoObrigatorio1;
