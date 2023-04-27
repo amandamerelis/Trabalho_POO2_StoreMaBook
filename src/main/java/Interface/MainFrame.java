@@ -4,8 +4,13 @@ import Controller.InterfaceController;
 
 /**
  *
- * Fontes da imagem:<a href="https://storyset.com/education">Education
- * illustrations by Storyset</a>
+ * Fontes da imagem:
+ * <a href="https://storyset.com/education">Education illustrations by Storyset</a>
+ * 
+ * <a target="_blank" href="https://icons8.com/icon/32Akt39C5Dah/book">Book</a>
+ * <a target="_blank" href="https://icons8.com">Icons8</a>
+ * 
+ * <a href="https://www.flaticon.com/free-stickers/education" title="education stickers">Education stickers created by Stickers - Flaticon</a>
  *
  * @author AMANDA FERREIRA MERELIS
  */
@@ -35,6 +40,13 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLeituras = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
+        MenuSuperior = new javax.swing.JMenuBar();
+        MenuLivros = new javax.swing.JMenu();
+        MenuCadastrarLivro = new javax.swing.JMenuItem();
+        MenuPesquisarLivro = new javax.swing.JMenuItem();
+        MenuAutores = new javax.swing.JMenu();
+        MenuCadastrarAutor = new javax.swing.JMenuItem();
+        MenuPesquisarAutor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Store MaBook");
@@ -79,7 +91,7 @@ public class MainFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Título", "Autor", "Status", "Avaliação"
+                "Título", "Autor", "Avaliação", "Data"
             }
         ));
         jScrollPane1.setViewportView(tableLeituras);
@@ -97,13 +109,44 @@ public class MainFrame extends javax.swing.JFrame {
             pnlListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(156, 156, 156))
         );
 
         btnExcluir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnExcluir.setForeground(new java.awt.Color(204, 0, 0));
         btnExcluir.setText("Excluir");
+
+        MenuLivros.setText("Livros");
+
+        MenuCadastrarLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-book-add-16.png"))); // NOI18N
+        MenuCadastrarLivro.setText("Cadastrar");
+        MenuCadastrarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarLivroActionPerformed(evt);
+            }
+        });
+        MenuLivros.add(MenuCadastrarLivro);
+
+        MenuPesquisarLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-book-search-16.png"))); // NOI18N
+        MenuPesquisarLivro.setText("Pesquisar");
+        MenuLivros.add(MenuPesquisarLivro);
+
+        MenuSuperior.add(MenuLivros);
+
+        MenuAutores.setText("Autores");
+
+        MenuCadastrarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-add-16.png"))); // NOI18N
+        MenuCadastrarAutor.setText("Cadastrar");
+        MenuAutores.add(MenuCadastrarAutor);
+
+        MenuPesquisarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-search-16.png"))); // NOI18N
+        MenuPesquisarAutor.setText("Pesquisar");
+        MenuAutores.add(MenuPesquisarAutor);
+
+        MenuSuperior.add(MenuAutores);
+
+        setJMenuBar(MenuSuperior);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,10 +188,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
-                        .addContainerGap(152, Short.MAX_VALUE))
+                        .addContainerGap(129, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlLista, javax.swing.GroupLayout.PREFERRED_SIZE, 281, Short.MAX_VALUE)
+                        .addComponent(pnlLista, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -167,8 +210,19 @@ public class MainFrame extends javax.swing.JFrame {
         interfaceController.abrirCadastroLeitura();
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void MenuCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarLivroActionPerformed
+        interfaceController.abrirCadastroLivro();
+    }//GEN-LAST:event_MenuCadastrarLivroActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuAutores;
+    private javax.swing.JMenuItem MenuCadastrarAutor;
+    private javax.swing.JMenuItem MenuCadastrarLivro;
+    private javax.swing.JMenu MenuLivros;
+    private javax.swing.JMenuItem MenuPesquisarAutor;
+    private javax.swing.JMenuItem MenuPesquisarLivro;
+    private javax.swing.JMenuBar MenuSuperior;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;

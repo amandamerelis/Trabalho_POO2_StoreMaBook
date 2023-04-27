@@ -1,5 +1,7 @@
 package Controller;
 
+import Interface.DlgCadastroAutor;
+import Interface.DlgCadastroLivro;
 import Interface.DlgDadosLeitura;
 import Interface.DlgVisualizarDetalhes;
 import Interface.MainFrame;
@@ -13,6 +15,8 @@ public class InterfaceController {
     private MainFrame janelaPrincipal = null;
     private DlgDadosLeitura janelaCadastroLeitura = null;
     private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
+    private DlgCadastroLivro janelaCadastroLivro = null;
+    private DlgCadastroAutor janelaCadastroAutor = null;
 
     private InterfaceController() {
     }
@@ -43,6 +47,14 @@ public class InterfaceController {
 
     public void abrirVisualizarLeitura() {
         janelaVisualizarLeitura = (DlgVisualizarDetalhes) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgVisualizarDetalhes.class);
+    }
+    
+    public void abrirCadastroLivro() {
+        janelaCadastroLivro = (DlgCadastroLivro) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgCadastroLivro.class);
+    }
+    
+    public void abrirCadastroAutor() {
+        janelaCadastroAutor = (DlgCadastroAutor) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgCadastroAutor.class);
     }
 
     /**
