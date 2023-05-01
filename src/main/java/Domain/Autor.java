@@ -1,6 +1,8 @@
 package Domain;
 
+import java.text.ParseException;
 import java.util.Date;
+import javax.persistence.*;
 
 /**
  *
@@ -9,20 +11,40 @@ import java.util.Date;
 
 public class Autor {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(name="nome", length=191, nullable=false)
     private String nome;
+    
+    @Temporal ( TemporalType.DATE )
     private Date dataNascimento;
+    
+    @Transient
     private int totalLivrosCadastrados;
 
     public Autor() {
     }
     
-    public Autor(String nome, Date dataNascimento, int totalLivrosCadastrados) {
+    public Autor(String nome, Date dataNascimento) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
-        this.totalLivrosCadastrados = totalLivrosCadastrados;
     }
 
+    public Object[] toArray() throws ParseException {
+        return new Object[]{id, this, getFormattedDataNascimento(), totalLivrosCadastrados};
+    }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    public String getFormattedDataNascimento() throws ParseException{
+        return Controller.FuncoesUteis.dateToStr(dataNascimento);
+    }
+    
     public int getId() {
         return id;
     }

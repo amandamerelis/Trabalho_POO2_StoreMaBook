@@ -1,5 +1,7 @@
 package Domain;
 
+import java.text.ParseException;
+
 /**
  *
  * @author AMANDA MERELIS
@@ -11,6 +13,14 @@ public class Genero {
     private String descricao;
 
     public Genero() {
+    }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
+    public Object[] toArray() throws ParseException {
+        return new Object[]{this, descricao};
     }
     
     public Genero(String descricao) {

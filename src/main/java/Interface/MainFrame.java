@@ -1,22 +1,32 @@
 package Interface;
 
 import Controller.InterfaceController;
+import Domain.Resenha;
 
 /**
  *
  * Fontes da imagem:
- * <a href="https://storyset.com/education">Education illustrations by Storyset</a>
- * 
+ * <a href="https://storyset.com/group">Group illustrations by Storyset</a>
+ *
  * <a target="_blank" href="https://icons8.com/icon/32Akt39C5Dah/book">Book</a>
  * <a target="_blank" href="https://icons8.com">Icons8</a>
- * 
- * <a href="https://www.flaticon.com/free-stickers/education" title="education stickers">Education stickers created by Stickers - Flaticon</a>
+ *
+ * <a target="_blank" href="https://icons8.com/icon/vYk5eyYhS0DR/star-of-bethlehem">Star
+ * of Bethlehem</a>
+ * icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+ *
+ * <a href="https://www.flaticon.com/free-stickers/education" title="education stickers">Education
+ * stickers created by Stickers - Flaticon</a>
+ *
+ * <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search
+ * icons created by Maxim Basinski Premium - Flaticon</a>
  *
  * @author AMANDA FERREIRA MERELIS
  */
 public class MainFrame extends javax.swing.JFrame {
 
     private InterfaceController interfaceController;
+    private Resenha resenhaSelecionada = null;
 
     public MainFrame(InterfaceController interfaceController) {
         initComponents();
@@ -33,14 +43,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        btnNovo = new javax.swing.JButton();
-        btnVisualizar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        pnlLista = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableLeituras = new javax.swing.JTable();
-        btnExcluir = new javax.swing.JButton();
+        imagem = new javax.swing.JLabel();
         MenuSuperior = new javax.swing.JMenuBar();
+        MenuResenhas = new javax.swing.JMenu();
+        MenuCadastrarResenha = new javax.swing.JMenuItem();
+        MenuPesquisarResenha = new javax.swing.JMenuItem();
         MenuLivros = new javax.swing.JMenu();
         MenuCadastrarLivro = new javax.swing.JMenuItem();
         MenuPesquisarLivro = new javax.swing.JMenuItem();
@@ -54,68 +61,32 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Source Sans Pro", 1, 24)); // NOI18N
-        lblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/A_menina_e_os_livros-150x150.png"))); // NOI18N
+        lblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icon-resenha-96.png"))); // NOI18N
         lblTitulo.setText("Bem vindo ao Store MaBook");
 
-        btnNovo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        imagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/storyset-pagina-principal.png"))); // NOI18N
+
+        MenuResenhas.setText("Resenhas");
+
+        MenuCadastrarResenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icon-resenha-add-16.png"))); // NOI18N
+        MenuCadastrarResenha.setText("Cadastrar");
+        MenuCadastrarResenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                MenuCadastrarResenhaActionPerformed(evt);
             }
         });
+        MenuResenhas.add(MenuCadastrarResenha);
 
-        btnVisualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnVisualizar.setText("Ver detalhes");
-        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+        MenuPesquisarResenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icon-resenha-search-16.png"))); // NOI18N
+        MenuPesquisarResenha.setText("Pesquisar");
+        MenuPesquisarResenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVisualizarActionPerformed(evt);
+                MenuPesquisarResenhaActionPerformed(evt);
             }
         });
+        MenuResenhas.add(MenuPesquisarResenha);
 
-        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        pnlLista.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Minha lista", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 12))); // NOI18N
-
-        tableLeituras.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Título", "Autor", "Avaliação", "Data"
-            }
-        ));
-        jScrollPane1.setViewportView(tableLeituras);
-
-        javax.swing.GroupLayout pnlListaLayout = new javax.swing.GroupLayout(pnlLista);
-        pnlLista.setLayout(pnlListaLayout);
-        pnlListaLayout.setHorizontalGroup(
-            pnlListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlListaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlListaLayout.setVerticalGroup(
-            pnlListaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156))
-        );
-
-        btnExcluir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(204, 0, 0));
-        btnExcluir.setText("Excluir");
+        MenuSuperior.add(MenuResenhas);
 
         MenuLivros.setText("Livros");
 
@@ -130,6 +101,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         MenuPesquisarLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-book-search-16.png"))); // NOI18N
         MenuPesquisarLivro.setText("Pesquisar");
+        MenuPesquisarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuPesquisarLivroActionPerformed(evt);
+            }
+        });
         MenuLivros.add(MenuPesquisarLivro);
 
         MenuSuperior.add(MenuLivros);
@@ -142,6 +118,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         MenuPesquisarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-search-16.png"))); // NOI18N
         MenuPesquisarAutor.setText("Pesquisar");
+        MenuPesquisarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuPesquisarAutorActionPerformed(evt);
+            }
+        });
         MenuAutores.add(MenuPesquisarAutor);
 
         MenuSuperior.add(MenuAutores);
@@ -153,83 +134,60 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(30, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                .addGap(90, 90, 90)
+                .addComponent(lblTitulo)
+                .addContainerGap(112, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imagem)
+                .addGap(199, 199, 199))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(btnNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVisualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir)
-                        .addContainerGap(129, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pnlLista, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-        interfaceController.abrirVisualizarLeitura();
-    }//GEN-LAST:event_btnVisualizarActionPerformed
-
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        interfaceController.abrirCadastroLeitura();
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        interfaceController.abrirCadastroLeitura();
-    }//GEN-LAST:event_btnEditarActionPerformed
-
     private void MenuCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarLivroActionPerformed
         interfaceController.abrirCadastroLivro();
     }//GEN-LAST:event_MenuCadastrarLivroActionPerformed
+
+    private void MenuPesquisarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarLivroActionPerformed
+        interfaceController.abrirPesquisarLivro();
+    }//GEN-LAST:event_MenuPesquisarLivroActionPerformed
+
+    private void MenuPesquisarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarAutorActionPerformed
+        interfaceController.abrirPesquisarAutor();
+    }//GEN-LAST:event_MenuPesquisarAutorActionPerformed
+
+    private void MenuCadastrarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarResenhaActionPerformed
+        interfaceController.abrirCadastroResenha();
+    }//GEN-LAST:event_MenuCadastrarResenhaActionPerformed
+
+    private void MenuPesquisarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarResenhaActionPerformed
+        interfaceController.abrirPesquisarResenha();
+    }//GEN-LAST:event_MenuPesquisarResenhaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuAutores;
     private javax.swing.JMenuItem MenuCadastrarAutor;
     private javax.swing.JMenuItem MenuCadastrarLivro;
+    private javax.swing.JMenuItem MenuCadastrarResenha;
     private javax.swing.JMenu MenuLivros;
     private javax.swing.JMenuItem MenuPesquisarAutor;
     private javax.swing.JMenuItem MenuPesquisarLivro;
+    private javax.swing.JMenuItem MenuPesquisarResenha;
+    private javax.swing.JMenu MenuResenhas;
     private javax.swing.JMenuBar MenuSuperior;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnVisualizar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel imagem;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JPanel pnlLista;
-    private javax.swing.JTable tableLeituras;
     // End of variables declaration//GEN-END:variables
 }

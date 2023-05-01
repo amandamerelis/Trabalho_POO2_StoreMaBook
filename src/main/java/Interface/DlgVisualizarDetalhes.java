@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Interface;
 
 import Controller.InterfaceController;
+import Domain.Resenha;
+import java.text.ParseException;
 
 /**
  *
- * @author SAMSUNG
+ * @author AMANDA MERELIS
  */
 public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
+    private Resenha resenhaExibicao = null;
 
-    public DlgVisualizarDetalhes(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
+    public DlgVisualizarDetalhes(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) throws ParseException {
         super(parent, modal);
         this.interfaceController = interfaceController;
         initComponents();
@@ -31,25 +30,25 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtGenero = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtSinopse = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtResenha = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtDataPublicacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtUltimaModificacao = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtAvaliacao = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -60,29 +59,24 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTextField1.setEnabled(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        txtTitulo.setEnabled(false);
 
         jLabel4.setText("Título");
 
         jLabel5.setText("Autor");
 
-        jTextField4.setEnabled(false);
+        txtAutor.setEnabled(false);
 
         jLabel8.setText("Gênero");
 
-        jTextField7.setEnabled(false);
+        txtGenero.setEnabled(false);
 
         jScrollPane1.setEnabled(false);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtSinopse.setColumns(20);
+        txtSinopse.setRows(5);
+        txtSinopse.setEnabled(false);
+        jScrollPane1.setViewportView(txtSinopse);
 
         jLabel9.setText("Sinopse");
 
@@ -90,10 +84,10 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         jScrollPane2.setEnabled(false);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setEnabled(false);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtResenha.setColumns(20);
+        txtResenha.setRows(5);
+        txtResenha.setEnabled(false);
+        jScrollPane2.setViewportView(txtResenha);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,13 +98,13 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(txtTitulo)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
+                                .addComponent(txtGenero, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,15 +130,15 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addGap(4, 4, 4)
@@ -160,15 +154,15 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         jLabel2.setText("Data cadastro:");
 
-        jTextField2.setEnabled(false);
+        txtDataPublicacao.setEnabled(false);
 
         jLabel3.setText("Útima modificação:");
 
-        jTextField3.setEnabled(false);
+        txtUltimaModificacao.setEnabled(false);
 
         jLabel7.setText("Avaliação:");
 
-        jTextField6.setEnabled(false);
+        txtAvaliacao.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,15 +171,15 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3)
+                    .addComponent(txtDataPublicacao)
+                    .addComponent(txtUltimaModificacao)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField6))
+                    .addComponent(txtAvaliacao))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -194,15 +188,15 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataPublicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUltimaModificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
 
@@ -245,9 +239,30 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    public Resenha getResenhaExibicao() {
+        return resenhaExibicao;
+    }
+
+    public void setResenhaExibicao(Resenha resenhaExibicao) {
+        this.resenhaExibicao = resenhaExibicao;
+    }
+
+    public void atualizar(Resenha resenha) throws ParseException {
+        preencherDados(resenha);
+    }
+
+    private void preencherDados(Resenha resenha) throws ParseException {
+        if (resenha != null) {
+            txtTitulo.setText(resenha.getLivro().getTitulo());
+            txtAutor.setText(resenha.getLivro().getAutor().getNome());
+            txtGenero.setText(resenha.getLivro().getGenero().getDescricao());
+            txtSinopse.setText(resenha.getLivro().getSinopse());
+            txtResenha.setText(resenha.getTexto());
+            txtAvaliacao.setText(resenha.getAvaliacao());
+            txtDataPublicacao.setText(resenha.getFormattedDataPublicacao());
+            txtUltimaModificacao.setText(resenha.getFormattedUltimaModificacao());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -264,13 +279,13 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtAvaliacao;
+    private javax.swing.JTextField txtDataPublicacao;
+    private javax.swing.JTextField txtGenero;
+    private javax.swing.JTextArea txtResenha;
+    private javax.swing.JTextArea txtSinopse;
+    private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTextField txtUltimaModificacao;
     // End of variables declaration//GEN-END:variables
 }

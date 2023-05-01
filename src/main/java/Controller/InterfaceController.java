@@ -1,26 +1,56 @@
 package Controller;
 
+import Domain.Autor;
+import Domain.Genero;
+import Domain.Livro;
+import Domain.Resenha;
 import Interface.DlgCadastroAutor;
 import Interface.DlgCadastroLivro;
-import Interface.DlgDadosLeitura;
+import Interface.DlgCadastroResenha;
+import Interface.DlgPesquisarAutor;
+import Interface.DlgPesquisarLivro;
+import Interface.DlgPesquisarResenha;
 import Interface.DlgVisualizarDetalhes;
 import Interface.MainFrame;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class InterfaceController {
 
     private MainFrame janelaPrincipal = null;
-    private DlgDadosLeitura janelaCadastroLeitura = null;
-    private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
-    private DlgCadastroLivro janelaCadastroLivro = null;
     private DlgCadastroAutor janelaCadastroAutor = null;
+    private DlgCadastroLivro janelaCadastroLivro = null;
+    private DlgCadastroResenha janelaCadastroResenha = null;
+
+    private DlgPesquisarAutor janelaPesquisaAutor = null;
+    private DlgPesquisarLivro janelaPesquisaLivro = null;
+    private DlgPesquisarResenha janelaPesquisaResenha = null;
+
+    private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
+    private DomainController domainController;
 
     private InterfaceController() {
+        try {
+            domainController = new DomainController();
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro de conexão com o banco. " + ex.getMessage());
+            System.exit(-1);
+        }
     }
-    
+
+    public DomainController getDomainController() {
+        return domainController;
+    }
+
     public void abrirJanelaPrincipal() {
         if (janelaPrincipal == null) {
             janelaPrincipal = new MainFrame(this);
@@ -41,20 +71,53 @@ public class InterfaceController {
         return dlg;
     }
 
-    public void abrirCadastroLeitura() {
-        janelaCadastroLeitura = (DlgDadosLeitura) abrirJanela(janelaPrincipal, janelaCadastroLeitura, DlgDadosLeitura.class);
+    public void carregarComboBoxGeneros(JComboBox<String> comboBox) {
+        //try {
+        List<Genero> lista = domainController.listarGeneros();
+        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+
+        //} catch (ClassNotFoundException | SQLException  ex) {
+        //JOptionPane.showMessageDialog(janPrinc, "Erro ao carregar cidades. " + ex.getMessage() );          
+        //} 
     }
 
-    public void abrirVisualizarLeitura() {
+    public void abrirVisualizarLeitura(Resenha resenha) {
+        /*if (janelaVisualizarLeitura != null) {
+            janelaVisualizarLeitura.setResenhaExibicao(resenha);
+        }*/
         janelaVisualizarLeitura = (DlgVisualizarDetalhes) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgVisualizarDetalhes.class);
+        try {
+            janelaVisualizarLeitura.atualizar(resenha);
+        } catch (ParseException ex) {
+            Logger.getLogger(InterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     public void abrirCadastroLivro() {
-        janelaCadastroLivro = (DlgCadastroLivro) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgCadastroLivro.class);
+        janelaCadastroLivro = (DlgCadastroLivro) abrirJanela(janelaPrincipal, janelaCadastroLivro, DlgCadastroLivro.class);
+    }
+
+    public void abrirCadastroAutor() {
+        janelaCadastroAutor = (DlgCadastroAutor) abrirJanela(janelaPrincipal, janelaCadastroAutor, DlgCadastroAutor.class);
     }
     
-    public void abrirCadastroAutor() {
-        janelaCadastroAutor = (DlgCadastroAutor) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgCadastroAutor.class);
+    public void abrirCadastroResenha() {
+        janelaCadastroResenha = (DlgCadastroResenha) abrirJanela(janelaPrincipal, janelaCadastroResenha, DlgCadastroResenha.class);
+    }
+
+    public Autor abrirPesquisarAutor() {
+        janelaPesquisaAutor = (DlgPesquisarAutor) abrirJanela(janelaPrincipal, janelaPesquisaAutor, DlgPesquisarAutor.class);
+        return janelaPesquisaAutor.getAutor();
+    }
+
+    public Livro abrirPesquisarLivro() {
+        janelaPesquisaLivro = (DlgPesquisarLivro) abrirJanela(janelaPrincipal, janelaPesquisaLivro, DlgPesquisarLivro.class);
+        return janelaPesquisaLivro.getLivro();
+    }
+    
+    public Resenha abrirPesquisarResenha() {
+        janelaPesquisaResenha = (DlgPesquisarResenha) abrirJanela(janelaPrincipal, janelaPesquisaResenha, DlgPesquisarResenha.class);
+        return janelaPesquisaResenha.getResenha();
     }
 
     /**
@@ -91,4 +154,5 @@ public class InterfaceController {
         InterfaceController interfaceController = new InterfaceController();
         interfaceController.abrirJanelaPrincipal();
     }
+
 }

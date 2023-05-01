@@ -1,21 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Interface;
+
+import Controller.FuncoesUteis;
+import Controller.InterfaceController;
+import Domain.Autor;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author SAMSUNG
+ * @author AMANDA MERELIS
  */
 public class DlgCadastroAutor extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DlgCadastroAutor
-     */
-    public DlgCadastroAutor(java.awt.Frame parent, boolean modal) {
+    private InterfaceController interfaceController;
+    private Autor autorSelecionado;
+    
+    public DlgCadastroAutor(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
         super(parent, modal);
         initComponents();
+        this.interfaceController = interfaceController;
+        autorSelecionado = null;
     }
 
     /**
@@ -36,6 +43,8 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         txtDataNascimento = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,7 +62,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
             .addGroup(pnlNomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlNomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
+                    .addComponent(txtNome)
                     .addGroup(pnlNomeLayout.createSequentialGroup()
                         .addComponent(lblNome)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -78,11 +87,6 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtDataNascimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataNascimentoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlDataNascimentoLayout = new javax.swing.GroupLayout(pnlDataNascimento);
         pnlDataNascimento.setLayout(pnlDataNascimentoLayout);
@@ -93,7 +97,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                 .addGroup(pnlDataNascimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDataNascimento)
                     .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlDataNascimentoLayout.setVerticalGroup(
             pnlDataNascimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,6 +114,24 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         btnNovo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnNovo.setForeground(new java.awt.Color(0, 51, 153));
         btnNovo.setText("CADASTRAR");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
+
+        btnAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAlterar.setText("ALTERAR");
+
+        btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/search.png"))); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,48 +142,128 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTituloDaPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(299, 299, 299)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAlterar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(pnlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnNovo)))))
+                            .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(pnlDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(lblTituloDaPagina)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTituloDaPagina)
+                    .addComponent(btnPesquisar))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNovo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascimentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataNascimentoActionPerformed
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        String nome = txtNome.getText();
+        String strDataNascimento = txtDataNascimento.getText();
 
+        if (validarDados()) {
+            try {
+                Date dataNascimento = FuncoesUteis.strToDate(strDataNascimento);
+
+                if (autorSelecionado == null) {
+                    //INSERE O AUTOR
+                    int id = interfaceController.getDomainController().inserirAutor(nome, dataNascimento);
+                    JOptionPane.showMessageDialog(this, "Autor (" + id + ") inserido com sucesso.", "Inserir Autor", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    //ALTERA O AUTOR
+                    interfaceController.getDomainController().alterarAutor(autorSelecionado, nome, dataNascimento);
+                    JOptionPane.showMessageDialog(this, "Autor (" + autorSelecionado.getId() + ") alterado com sucesso.", "Alterar Autor", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(DlgCadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        autorSelecionado = interfaceController.abrirPesquisarAutor();
+        try {
+            preencherCampos(autorSelecionado);
+        } catch (ParseException ex) {
+            Logger.getLogger(DlgCadastroAutor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    public void habilitarBotoes() {
+        if (autorSelecionado == null) {
+            btnNovo.setVisible(true);
+            btnAlterar.setVisible(false);
+        } else {
+            btnNovo.setVisible(false);
+            btnAlterar.setVisible(true);
+        }
+    }
+    
+    private void preencherCampos(Autor autor) throws ParseException{
+        if(autorSelecionado != null){
+            txtNome.setText(autor.getNome());
+            txtDataNascimento.setText(autor.getFormattedDataNascimento());
+            habilitarBotoes();
+        }
+    }
+    
+    private boolean validarDados(){
+        String msgErro = "";
+        boolean validado = true;
+
+        if (txtNome.getText().isEmpty()) {
+            msgErro = msgErro + "Digite o nome completo do autor.\n";
+            validado = false;
+        }
+
+        try {
+            Date dtNasc = FuncoesUteis.strToDate(txtDataNascimento.getText());
+        } catch (ParseException ex) {
+            msgErro = msgErro + "Data inválida.\n";
+            validado = false;
+        }
+
+        if (validado) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro, "ERRO: LIVRO", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblNome;

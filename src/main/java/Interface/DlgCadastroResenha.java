@@ -1,20 +1,25 @@
 package Interface;
 
 import Controller.InterfaceController;
+import Domain.Livro;
+import Domain.Resenha;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
-public class DlgDadosLeitura extends javax.swing.JDialog {
+public class DlgCadastroResenha extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
+    private Resenha resenhaSelecionada;
 
-    public DlgDadosLeitura(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
+    public DlgCadastroResenha(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
         super(parent, modal);
         this.interfaceController = interfaceController;
         initComponents();
         popularComboBoxes();
-        comboBoxAvaliacao.setEnabled(false);
+        habilitarBotoes();
     }
-    
+
     private void popularComboBoxes() {
         DefaultComboBoxModel model;
         String[] avaliacao = new String[]{"1 Estrela", "2 Estrelas", "3 Estrelas", "4 Estrelas", "5 Estrelas"};
@@ -22,23 +27,13 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         comboBoxAvaliacao.setModel(model);
     }
 
-    /* Função de população da ComboBox que será usada futuramente
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {                                    
-        DefaultComboBoxModel modelGenero;
-        try {
-            modelGenero = new DefaultComboBoxModel(listarGeneros().toArray());
-            comboBoxGenero.setModel(modelGenero);
-        } catch (SQLException | ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar os dados.\n" + ex.getMessage());
-        }
-    }*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         pnlTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        comboBoxTitulos = new javax.swing.JComboBox<>();
+        comboBoxLivros = new javax.swing.JComboBox<>();
         pnlAutor = new javax.swing.JPanel();
         lblAutor = new javax.swing.JLabel();
         txtAutor = new javax.swing.JTextField();
@@ -51,6 +46,9 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
         lblResenha = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtResenha = new javax.swing.JTextArea();
+        btnCancelar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Store MaBook - Cadastro de nova leitura");
@@ -68,7 +66,7 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
             .addGroup(pnlTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxTitulos, 0, 576, Short.MAX_VALUE)
+                    .addComponent(comboBoxLivros, 0, 576, Short.MAX_VALUE)
                     .addGroup(pnlTituloLayout.createSequentialGroup()
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -80,7 +78,7 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboBoxTitulos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxLivros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -186,20 +184,48 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(204, 0, 0));
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAlterar.setText("ALTERAR");
+
+        btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/search.png"))); // NOI18N
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlResenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlResenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblTituloDaPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(303, 303, 303)
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addGap(156, 156, 156)
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(pnlAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,16 +233,14 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                                 .addComponent(pnlAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(pnlTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTituloDaPagina, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(lblTituloDaPagina)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTituloDaPagina)
+                    .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -226,22 +250,97 @@ public class DlgDadosLeitura extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(pnlResenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnAlterar))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        Livro livro = (Livro) comboBoxLivros.getSelectedItem();
+        String avaliacao = (String) comboBoxAvaliacao.getSelectedItem();
+        String texto = txtResenha.getText();
+        Date dataPublicacao = new Date();
+        
+        if (validarDados()) {
+            if (resenhaSelecionada == null) {
+                //INSERE A RESENHA
+                int id = interfaceController.getDomainController().inserirResenha(avaliacao, texto, dataPublicacao, livro);
+                JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                //ALTERA A RESENHA
+                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, dataPublicacao, livro);
+                JOptionPane.showMessageDialog(this, "Resenha (" + resenhaSelecionada.getId() + ") alterada com sucesso.", "Alterar Resenha", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        resenhaSelecionada = interfaceController.abrirPesquisarResenha();
+        preencherCampos(resenhaSelecionada);
+    }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void preencherCampos(Resenha resenha) {
+        if (resenha != null) {
+            comboBoxLivros.setSelectedItem(resenha.getLivro());
+            comboBoxAvaliacao.setSelectedItem(resenha.getAvaliacao());
+            txtAutor.setText(resenha.getLivro().getAutor().getNome());
+            txtResenha.setText(resenha.getTexto());
+            habilitarBotoes();
+        }
+    }
+
+    public void habilitarBotoes() {
+        if (resenhaSelecionada == null) {
+            btnSalvar.setVisible(true);
+            btnAlterar.setVisible(false);
+        } else {
+            btnSalvar.setVisible(false);
+            btnAlterar.setVisible(true);
+        }
+    }
+
+    private void limparCampos() {
+        comboBoxLivros.setSelectedIndex(0);
+        txtAutor.setText("");
+        comboBoxAvaliacao.setSelectedIndex(0);
+        txtResenha.setText("");
+        resenhaSelecionada = null;
+        habilitarBotoes();
+    }
+
+    private boolean validarDados() {
+        String msgErro = "";
+        boolean validado = true;
+
+        if (txtResenha.getText().length() < 50) {
+            msgErro = msgErro + "A resenha deve conter no mínimo 50 caracteres.\n";
+            validado = false;
+        }
+
+        if (validado) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(this, msgErro, "ERRO: RESENHA", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> comboBoxAvaliacao;
-    private javax.swing.JComboBox<String> comboBoxTitulos;
+    private javax.swing.JComboBox<String> comboBoxLivros;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAutor;
     private javax.swing.JLabel lblAvaliacao;
