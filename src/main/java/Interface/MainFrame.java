@@ -114,6 +114,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         MenuCadastrarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-add-16.png"))); // NOI18N
         MenuCadastrarAutor.setText("Cadastrar");
+        MenuCadastrarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarAutorActionPerformed(evt);
+            }
+        });
         MenuAutores.add(MenuCadastrarAutor);
 
         MenuPesquisarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-search-16.png"))); // NOI18N
@@ -174,6 +179,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void MenuPesquisarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarResenhaActionPerformed
         interfaceController.abrirPesquisarResenha();
     }//GEN-LAST:event_MenuPesquisarResenhaActionPerformed
+
+    private void MenuCadastrarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarAutorActionPerformed
+        interfaceController.abrirCadastroAutor();
+    }//GEN-LAST:event_MenuCadastrarAutorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -273,7 +273,7 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 //ALTERA A RESENHA
-                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, dataPublicacao, livro);
+                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, livro);
                 JOptionPane.showMessageDialog(this, "Resenha (" + resenhaSelecionada.getId() + ") alterada com sucesso.", "Alterar Resenha", JOptionPane.INFORMATION_MESSAGE);
             }
         }
@@ -309,9 +309,9 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
     }
 
     private void limparCampos() {
-        comboBoxLivros.setSelectedIndex(0);
+        comboBoxLivros.setSelectedIndex(-1);
         txtAutor.setText("");
-        comboBoxAvaliacao.setSelectedIndex(0);
+        comboBoxAvaliacao.setSelectedIndex(-1);
         txtResenha.setText("");
         resenhaSelecionada = null;
         habilitarBotoes();
@@ -321,8 +321,18 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         String msgErro = "";
         boolean validado = true;
 
+        if(comboBoxLivros.getSelectedItem() == null){
+            msgErro = msgErro + "É obrigatório escolher um livro.\n";
+            validado = false;
+        }
+        
         if (txtResenha.getText().length() < 50) {
             msgErro = msgErro + "A resenha deve conter no mínimo 50 caracteres.\n";
+            validado = false;
+        }
+        
+        if(comboBoxAvaliacao.getSelectedItem() == null){
+            msgErro = msgErro + "É obrigatório escolher uma avaliação.\n";
             validado = false;
         }
 

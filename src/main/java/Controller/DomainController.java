@@ -127,10 +127,9 @@ public class DomainController {
         return lista;
     }
 
-    public void alterarResenha(Resenha resenha, String avaliacao, String texto, Date dataPublicacao, Livro livro) {
+    public void alterarResenha(Resenha resenha, String avaliacao, String texto, Livro livro) {
         resenha.setAvaliacao(avaliacao);
         resenha.setTexto(texto);
-        resenha.setDataPublicacao(dataPublicacao);
         resenha.setLivro(livro);
     }
     

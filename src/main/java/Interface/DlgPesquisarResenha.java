@@ -24,8 +24,8 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
         this.interfaceController = interfaceController;
         resenhaSelecionada = null;
     }
-    
-    public Resenha getResenha(){
+
+    public Resenha getResenha() {
         return resenhaSelecionada;
     }
 
@@ -46,6 +46,7 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblResenhas = new javax.swing.JTable();
+        btnDetalhes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -89,16 +90,29 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
 
         tblResenhas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Título", "Autor", "Avaliação", "Data"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblResenhas);
+
+        btnDetalhes.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        btnDetalhes.setText("VER DETALHES");
+        btnDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalhesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,6 +131,8 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDetalhes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSelecionar3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -136,7 +152,8 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSelecionar3)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(btnDetalhes))
                 .addContainerGap())
         );
 
@@ -152,7 +169,6 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar resenha", JOptionPane.ERROR_MESSAGE);
         }
 
-        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -201,8 +217,21 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void btnDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalhesActionPerformed
+        int linha = tblResenhas.getSelectedRow();
+
+        if (linha >= 0) {
+            this.setVisible(false);
+            interfaceController.abrirVisualizarLeitura((Resenha) tblResenhas.getValueAt(linha, 1));
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma resenha para visualizar os detalhes\n");
+        }
+
+    }//GEN-LAST:event_btnDetalhesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnDetalhes;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSelecionar3;

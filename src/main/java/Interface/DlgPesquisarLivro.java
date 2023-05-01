@@ -66,7 +66,7 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -184,7 +184,6 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar livro", JOptionPane.ERROR_MESSAGE);
         }
 
-        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

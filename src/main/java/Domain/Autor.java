@@ -1,5 +1,6 @@
 package Domain;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 import javax.persistence.*;
@@ -9,7 +10,8 @@ import javax.persistence.*;
  * @author AMANDA MERELIS
  */
 
-public class Autor {
+@Entity
+public class Autor implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,8 @@ public class Autor {
     @Column(name="nome", length=191, nullable=false)
     private String nome;
     
-    @Temporal ( TemporalType.DATE )
+    @Column(name="data_nascimento", nullable=false)
+    @Temporal ( TemporalType.DATE)
     private Date dataNascimento;
     
     @Transient

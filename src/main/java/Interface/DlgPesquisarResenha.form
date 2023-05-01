@@ -37,6 +37,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnCancelar" min="-2" pref="105" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnDetalhes" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnExcluir" min="-2" pref="108" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSelecionar3" min="-2" pref="113" max="-2" attributes="0"/>
@@ -62,6 +64,7 @@
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnSelecionar3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDetalhes" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -147,17 +150,28 @@
         <Component class="javax.swing.JTable" name="tblResenhas">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
-                <Column editable="true" title="ID" type="java.lang.Object"/>
-                <Column editable="true" title="T&#xed;tulo" type="java.lang.Object"/>
-                <Column editable="true" title="Autor" type="java.lang.Object"/>
-                <Column editable="true" title="Avalia&#xe7;&#xe3;o" type="java.lang.Object"/>
-                <Column editable="true" title="Data" type="java.lang.Object"/>
+              <Table columnCount="5" rowCount="0">
+                <Column editable="false" title="ID" type="java.lang.Object"/>
+                <Column editable="false" title="T&#xed;tulo" type="java.lang.Object"/>
+                <Column editable="false" title="Autor" type="java.lang.Object"/>
+                <Column editable="false" title="Avalia&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="false" title="Data" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnDetalhes">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="3"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="VER DETALHES"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetalhesActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

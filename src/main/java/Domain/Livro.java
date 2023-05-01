@@ -1,22 +1,46 @@
 package Domain;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
  * @author AMANDA MERELIS
  */
 
-public class Livro {
+@Entity
+public class Livro implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(name="titulo", length=255, nullable=false)
     private String titulo;
+    
+    @Column(name="data_lancamento", nullable=false)
+    @Temporal(TemporalType.DATE)
     private Date dataLancamento;
+    
+    @Column(name="sinopse", length=600, nullable=false)
     private String sinopse;
+    
+    @Lob
     private byte[] capa;
+    
+    @ManyToOne
+    @JoinColumn(name="id_autor")
     private Autor autor;
+    
+    @ManyToOne
+    @JoinColumn(name="id_genero")
     private Genero genero;
+    
+    @OneToMany(mappedBy = "livro", fetch =  FetchType.LAZY)
+    private List<Resenha> resenhas;
 
     public Livro() {
     }
@@ -97,6 +121,14 @@ public class Livro {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    public List<Resenha> getResenhas() {
+        return resenhas;
+    }
+
+    public void setResenhas(List<Resenha> resenhas) {
+        this.resenhas = resenhas;
     }
     
 }

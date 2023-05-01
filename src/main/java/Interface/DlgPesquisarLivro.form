@@ -113,7 +113,7 @@
                 <Column editable="false" title="ID" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xed;tulo" type="java.lang.Object"/>
                 <Column editable="false" title="Autor" type="java.lang.Object"/>
-                <Column editable="true" title="Data Lan&#xe7;amento" type="java.lang.Object"/>
+                <Column editable="false" title="Data Lan&#xe7;amento" type="java.lang.Object"/>
                 <Column editable="false" title="Capa" type="java.lang.Object"/>
               </Table>
             </Property>

@@ -11,10 +11,10 @@
     <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
-    <mapping class="domain.Autor"></mapping>
-    <mapping class="domain.Genero"></mapping>
-    <mapping class="domain.Livro"></mapping>
-    <mapping class="domain.Resenha"></mapping>
+    <mapping class="Domain.Autor"></mapping>
+    <mapping class="Domain.Genero"></mapping>
+    <mapping class="Domain.Livro"></mapping>
+    <mapping class="Domain.Resenha"></mapping>
   </session-factory>
 </hibernate-configuration>
 

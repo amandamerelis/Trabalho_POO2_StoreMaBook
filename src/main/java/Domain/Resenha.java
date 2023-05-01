@@ -1,20 +1,38 @@
 package Domain;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
+import javax.persistence.*;
 
 /**
  *
  * @author AMANDA MERELIS
  */
 
-public class Resenha {
+@Entity
+public class Resenha implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(name="avaliacao", length=15, nullable=false)
     private String avaliacao;
+    
+    @Column(name="texto", length=1500, nullable=false)
     private String texto;
+    
+    @Column(name="data_publicacao", updatable=false)
+    @Temporal(TemporalType.DATE)
     private Date dataPublicacao;
+    
+    @Column(name="ultima_modificacao", updatable=false)
+    @Temporal(TemporalType.DATE)
     private Date ultimaModificacao;
+    
+    @ManyToOne
+    @JoinColumn(name="id_livro")
     private Livro livro;
 
     public Resenha() {

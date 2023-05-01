@@ -23,6 +23,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         initComponents();
         this.interfaceController = interfaceController;
         autorSelecionado = null;
+        habilitarBotoes();
     }
 
     /**

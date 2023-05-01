@@ -1,15 +1,22 @@
 package Domain;
 
+import java.io.Serializable;
 import java.text.ParseException;
+import javax.persistence.*;
 
 /**
  *
  * @author AMANDA MERELIS
  */
 
-public class Genero {
+@Entity
+public class Genero implements Serializable{
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @Column(name="descricao", length=191, nullable=false)
     private String descricao;
 
     public Genero() {

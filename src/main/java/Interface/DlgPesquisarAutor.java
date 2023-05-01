@@ -173,7 +173,6 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar autor", JOptionPane.ERROR_MESSAGE);
         }
 
-        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

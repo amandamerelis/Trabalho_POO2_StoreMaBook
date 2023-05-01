@@ -369,7 +369,8 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         txtTitulo.setText("");
         txtSinopse.setText("");
         txtDataLancamento.setText("");
-        comboBoxGeneros.setSelectedIndex(0);
+        comboBoxAutores.setSelectedIndex(-1);
+        comboBoxGeneros.setSelectedIndex(-1);
         lblCapa.setText("CLIQUE PARA INSERIR");
         lblCapa.setIcon(null);
         livroSelecionado = null;
@@ -379,9 +380,19 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
     private boolean validarDados() {
         String msgErro = "";
         boolean validado = true;
-
+        
         if (txtTitulo.getText().isEmpty()) {
             msgErro = msgErro + "Digite o título.\n";
+            validado = false;
+        }
+        
+        if(comboBoxAutores.getSelectedItem() == null){
+            msgErro = msgErro + "É obrigatório escolher um autor.\n";
+            validado = false;
+        }
+        
+        if(comboBoxGeneros.getSelectedItem() == null){
+            msgErro = msgErro + "É obrigatório escolher um gênero.\n";
             validado = false;
         }
 
