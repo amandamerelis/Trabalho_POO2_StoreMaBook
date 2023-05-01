@@ -71,14 +71,19 @@ public class InterfaceController {
         return dlg;
     }
 
+    public void carregarComboBoxAutores(JComboBox<String> comboBox) {
+        List<Autor> lista = domainController.listarAutores();
+        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+    }
+    
     public void carregarComboBoxGeneros(JComboBox<String> comboBox) {
-        //try {
         List<Genero> lista = domainController.listarGeneros();
         comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
-
-        //} catch (ClassNotFoundException | SQLException  ex) {
-        //JOptionPane.showMessageDialog(janPrinc, "Erro ao carregar cidades. " + ex.getMessage() );          
-        //} 
+    }
+    
+    public void carregarComboBoxLivros(JComboBox<String> comboBox) {
+        List<Livro> lista = domainController.listarLivros();
+        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
     }
 
     public void abrirVisualizarLeitura(Resenha resenha) {
@@ -100,7 +105,7 @@ public class InterfaceController {
     public void abrirCadastroAutor() {
         janelaCadastroAutor = (DlgCadastroAutor) abrirJanela(janelaPrincipal, janelaCadastroAutor, DlgCadastroAutor.class);
     }
-    
+
     public void abrirCadastroResenha() {
         janelaCadastroResenha = (DlgCadastroResenha) abrirJanela(janelaPrincipal, janelaCadastroResenha, DlgCadastroResenha.class);
     }
@@ -114,7 +119,7 @@ public class InterfaceController {
         janelaPesquisaLivro = (DlgPesquisarLivro) abrirJanela(janelaPrincipal, janelaPesquisaLivro, DlgPesquisarLivro.class);
         return janelaPesquisaLivro.getLivro();
     }
-    
+
     public Resenha abrirPesquisarResenha() {
         janelaPesquisaResenha = (DlgPesquisarResenha) abrirJanela(janelaPrincipal, janelaPesquisaResenha, DlgPesquisarResenha.class);
         return janelaPesquisaResenha.getResenha();

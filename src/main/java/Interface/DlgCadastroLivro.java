@@ -343,7 +343,10 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
     //Função de população da ComboBox de Gêneros
     private void formComponentShown(java.awt.event.ComponentEvent evt) {
+        interfaceController.carregarComboBoxAutores(comboBoxAutores);
         interfaceController.carregarComboBoxGeneros(comboBoxGeneros);
+        comboBoxAutores.setSelectedIndex(-1);
+        comboBoxGeneros.setSelectedIndex(-1);
     }
 
     private void mostrarFoto(Icon ic) {

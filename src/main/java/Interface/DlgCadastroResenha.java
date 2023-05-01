@@ -25,6 +25,12 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         String[] avaliacao = new String[]{"1 Estrela", "2 Estrelas", "3 Estrelas", "4 Estrelas", "5 Estrelas"};
         model = new DefaultComboBoxModel(avaliacao);
         comboBoxAvaliacao.setModel(model);
+        comboBoxAvaliacao.setSelectedIndex(-1);
+    }
+    
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {
+        interfaceController.carregarComboBoxLivros(comboBoxLivros);
+        comboBoxLivros.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
