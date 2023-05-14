@@ -3,6 +3,7 @@ package Domain;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -26,6 +27,9 @@ public class Autor implements Serializable{
     
     @Transient
     private int totalLivrosCadastrados;
+    
+    @OneToMany(mappedBy = "autor", fetch =  FetchType.LAZY)
+    private List<Livro> livros;
 
     public Autor() {
     }

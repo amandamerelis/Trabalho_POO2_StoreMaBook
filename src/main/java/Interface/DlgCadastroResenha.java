@@ -1,6 +1,7 @@
 package Interface;
 
 import Controller.InterfaceController;
+import Domain.Autor;
 import Domain.Livro;
 import Domain.Resenha;
 import java.util.Date;
@@ -26,11 +27,6 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         model = new DefaultComboBoxModel(avaliacao);
         comboBoxAvaliacao.setModel(model);
         comboBoxAvaliacao.setSelectedIndex(-1);
-    }
-    
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {
-        interfaceController.carregarComboBoxLivros(comboBoxLivros);
-        comboBoxLivros.setSelectedIndex(-1);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,11 +55,22 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Store MaBook - Cadastro de nova leitura");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlTitulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTitulo.setText("Título");
+
+        comboBoxLivros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxLivrosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTituloLayout = new javax.swing.GroupLayout(pnlTitulo);
         pnlTitulo.setLayout(pnlTituloLayout);
@@ -271,7 +278,7 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         String avaliacao = (String) comboBoxAvaliacao.getSelectedItem();
         String texto = txtResenha.getText();
         Date dataPublicacao = new Date();
-        
+
         if (validarDados()) {
             if (resenhaSelecionada == null) {
                 //INSERE A RESENHA
@@ -293,6 +300,19 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         resenhaSelecionada = interfaceController.abrirPesquisarResenha();
         preencherCampos(resenhaSelecionada);
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        interfaceController.carregarComboBoxLivros(comboBoxLivros, Livro.class);
+        comboBoxLivros.setSelectedIndex(-1);
+    }//GEN-LAST:event_formComponentShown
+
+    private void comboBoxLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLivrosActionPerformed
+        if (comboBoxLivros.getSelectedItem() != null) {
+            Livro livro = (Livro) comboBoxLivros.getSelectedItem();
+            txtAutor.setText(livro.getAutor().getNome());
+        }
+
+    }//GEN-LAST:event_comboBoxLivrosActionPerformed
 
     private void preencherCampos(Resenha resenha) {
         if (resenha != null) {
@@ -327,17 +347,17 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         String msgErro = "";
         boolean validado = true;
 
-        if(comboBoxLivros.getSelectedItem() == null){
+        if (comboBoxLivros.getSelectedItem() == null) {
             msgErro = msgErro + "É obrigatório escolher um livro.\n";
             validado = false;
         }
-        
+
         if (txtResenha.getText().length() < 50) {
             msgErro = msgErro + "A resenha deve conter no mínimo 50 caracteres.\n";
             validado = false;
         }
-        
-        if(comboBoxAvaliacao.getSelectedItem() == null){
+
+        if (comboBoxAvaliacao.getSelectedItem() == null) {
             msgErro = msgErro + "É obrigatório escolher uma avaliação.\n";
             validado = false;
         }

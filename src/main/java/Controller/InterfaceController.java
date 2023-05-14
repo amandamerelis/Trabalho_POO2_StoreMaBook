@@ -23,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 
 public class InterfaceController {
 
@@ -36,7 +37,7 @@ public class InterfaceController {
     private DlgPesquisarResenha janelaPesquisaResenha = null;
 
     private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
-    private DomainController domainController;
+    private DomainController domainController = null;
 
     private InterfaceController() {
         try {
@@ -71,19 +72,32 @@ public class InterfaceController {
         return dlg;
     }
 
-    public void carregarComboBoxAutores(JComboBox<String> comboBox) {
-        List<Autor> lista = domainController.listarAutores();
-        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+    public void carregarComboBoxAutores(JComboBox comboBox, Class classe) {
+        try {
+            List<Autor> lista = domainController.listar(classe);
+            comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException erro) {
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os autores.");
+        }
     }
-    
-    public void carregarComboBoxGeneros(JComboBox<String> comboBox) {
-        List<Genero> lista = domainController.listarGeneros();
-        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+
+    public void carregarComboBoxGeneros(JComboBox comboBox, Class classe) {
+        try {
+            List<Genero> lista = domainController.listar(classe);
+            comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException erro) {
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os generos.");
+            throw new HibernateException(erro);
+        }
     }
-    
-    public void carregarComboBoxLivros(JComboBox<String> comboBox) {
-        List<Livro> lista = domainController.listarLivros();
-        comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+
+    public void carregarComboBoxLivros(JComboBox comboBox, Class classe) {
+        try {
+            List<Livro> lista = domainController.listar(classe);
+            comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (HibernateException erro) {
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os livros.");
+        }
     }
 
     public void abrirVisualizarLeitura(Resenha resenha) {

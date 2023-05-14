@@ -7,37 +7,29 @@ import java.util.List;
  *
  * @author AMANDA MERELIS
  */
-public class LivroDAO {
+public class LivroDAO extends GenericDAO {
     
-    public int inserir(Livro livro){
-        return -1;
-    }
-    
-    public List<Livro> listar(){
+    public List<Livro> pesquisar(String pesquisa, int tipo) {
         return null;
     }
-    
-    public List<Livro> pesquisar(String pesquisa, int tipo){
-        return null;
+
+    public List<Livro> pesquisarPorTitulo(String pesquisa) {
+        return pesquisar(pesquisa, 0);
+    }
+
+    public List<Livro> pesquisarPorAutor(String pesquisa) {
+        return pesquisar(pesquisa, 1);
+    }
+
+    public List<Livro> pesquisarPorID(String pesquisa) {
+        return pesquisar(pesquisa, 1);
     }
     
-    public List<Livro> pesquisarPorTitulo(String pesquisa){
-        return pesquisar(pesquisa,0);
+     public List<Livro> pesquisarPorGenero(String pesquisa) {
+        return pesquisar(pesquisa, 1);
     }
     
-    public List<Livro> pesquisarPorAutor(String pesquisa){
-        return pesquisar(pesquisa,1);
-    }
-    
-    public List<Livro> pesquisarPorID(String pesquisa){
-        return pesquisar(pesquisa,1);
-    }
-    
-    public void alterar(Livro livro){
-        
-    }
-    
-    public void excluir(Livro livro){
-        
+    public void alterar(Livro livro) {
+
     }
 }

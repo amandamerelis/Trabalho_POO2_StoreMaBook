@@ -6,13 +6,16 @@ import Domain.Autor;
 import Domain.Genero;
 import Domain.Livro;
 import java.awt.Image;
+import java.io.File;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -70,6 +73,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("StoreMaBook - Livros");
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         lblTituloDaPagina.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTituloDaPagina.setText("StoreMaBook - Livro");
@@ -163,6 +171,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         lblCapa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCapa.setText("CLIQUE PARA INSERIR");
         lblCapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblCapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCapaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCapaLayout = new javax.swing.GroupLayout(pnlCapa);
         pnlCapa.setLayout(pnlCapaLayout);
@@ -341,15 +354,7 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Função de população da ComboBox de Gêneros
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {
-        interfaceController.carregarComboBoxAutores(comboBoxAutores);
-        interfaceController.carregarComboBoxGeneros(comboBoxGeneros);
-        comboBoxAutores.setSelectedIndex(-1);
-        comboBoxGeneros.setSelectedIndex(-1);
-    }
-
-    private void mostrarFoto(Icon ic) {
+    private void mostrarCapa(Icon ic) {
         // Redimensionar
         ImageIcon imagem = (ImageIcon) ic;
         imagem.setImage(imagem.getImage().getScaledInstance(lblCapa.getWidth(), lblCapa.getHeight(), Image.SCALE_DEFAULT));
@@ -383,18 +388,18 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
     private boolean validarDados() {
         String msgErro = "";
         boolean validado = true;
-        
+
         if (txtTitulo.getText().isEmpty()) {
             msgErro = msgErro + "Digite o título.\n";
             validado = false;
         }
-        
-        if(comboBoxAutores.getSelectedItem() == null){
+
+        if (comboBoxAutores.getSelectedItem() == null) {
             msgErro = msgErro + "É obrigatório escolher um autor.\n";
             validado = false;
         }
-        
-        if(comboBoxGeneros.getSelectedItem() == null){
+
+        if (comboBoxGeneros.getSelectedItem() == null) {
             msgErro = msgErro + "É obrigatório escolher um gênero.\n";
             validado = false;
         }
@@ -428,7 +433,7 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
             if (livro.getCapa() != null) {
                 ImageIcon imagem = new ImageIcon(livro.getCapa());
-                mostrarFoto(imagem);
+                mostrarCapa(imagem);
             } else {
                 lblCapa.setText("CLIQUE PARA INSERIR");
                 lblCapa.setIcon(null);
@@ -467,10 +472,9 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
                 if (livroSelecionado == null) {
                     //INSERE O LIVRO
-                    int id = interfaceController.getDomainController().inserirLivro(titulo, dataLancamento, sinopse, capa, autor, genero);
+                    int id = interfaceController.getDomainController().inserirLivro(titulo.toUpperCase(), dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + id + ") inserido com sucesso.", "Inserir Livro", JOptionPane.INFORMATION_MESSAGE);
-                }
-                else{
+                } else {
                     interfaceController.getDomainController().alterarLivro(livroSelecionado, titulo, dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + livroSelecionado.getId() + ") alterado com sucesso.", "Alterar Livro", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -479,6 +483,29 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void lblCapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCapaMouseClicked
+        JFileChooser janelaArquivo = new JFileChooser();
+
+        janelaArquivo.setAcceptAllFileFilterUsed(false);
+        janelaArquivo.setFileFilter(new FileNameExtensionFilter("Arquivos de imagem", "jpg", "png", "gif", "bmp"));
+        janelaArquivo.addChoosableFileFilter(new FileNameExtensionFilter("Arquivos de texto", "txt", "doc", "docx"));
+
+        if (janelaArquivo.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = janelaArquivo.getSelectedFile();
+            Icon imagem = new ImageIcon(arquivo.getAbsolutePath());
+            mostrarCapa(imagem);
+        }
+
+
+    }//GEN-LAST:event_lblCapaMouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        interfaceController.carregarComboBoxAutores(comboBoxAutores, Autor.class);
+        interfaceController.carregarComboBoxGeneros(comboBoxGeneros, Genero.class);
+        comboBoxAutores.setSelectedIndex(-1);
+        comboBoxGeneros.setSelectedIndex(-1);
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

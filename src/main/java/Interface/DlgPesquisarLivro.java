@@ -45,7 +45,7 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titulo", "Autor", "ID" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titulo", "Autor", "ID", "Genero" }));
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));

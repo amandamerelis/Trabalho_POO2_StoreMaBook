@@ -196,7 +196,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
 
                 if (autorSelecionado == null) {
                     //INSERE O AUTOR
-                    int id = interfaceController.getDomainController().inserirAutor(nome, dataNascimento);
+                    int id = interfaceController.getDomainController().inserirAutor(nome.toUpperCase(), dataNascimento);
                     JOptionPane.showMessageDialog(this, "Autor (" + id + ") inserido com sucesso.", "Inserir Autor", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -204,6 +204,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                     interfaceController.getDomainController().alterarAutor(autorSelecionado, nome, dataNascimento);
                     JOptionPane.showMessageDialog(this, "Autor (" + autorSelecionado.getId() + ") alterado com sucesso.", "Alterar Autor", JOptionPane.INFORMATION_MESSAGE);
                 }
+                limparDados();
             } catch (ParseException ex) {
                 Logger.getLogger(DlgCadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -219,6 +220,11 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
+    private void limparDados(){
+        txtNome.setText("");
+        txtDataNascimento.setText("");
+    }
+    
     public void habilitarBotoes() {
         if (autorSelecionado == null) {
             btnNovo.setVisible(true);
