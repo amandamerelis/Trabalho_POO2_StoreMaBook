@@ -474,6 +474,7 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
                     //INSERE O LIVRO
                     int id = interfaceController.getDomainController().inserirLivro(titulo.toUpperCase(), dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + id + ") inserido com sucesso.", "Inserir Livro", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
                 } else {
                     interfaceController.getDomainController().alterarLivro(livroSelecionado, titulo, dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + livroSelecionado.getId() + ") alterado com sucesso.", "Alterar Livro", JOptionPane.INFORMATION_MESSAGE);

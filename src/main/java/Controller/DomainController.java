@@ -106,6 +106,7 @@ public class DomainController {
     //--------------------------------------------------CRUD RESENHAS
     public int inserirResenha(String avaliacao, String texto, Date dataPublicacao, Livro livro) {
         Resenha resenha = new Resenha(avaliacao, texto, dataPublicacao, livro);
+        resenha.setUltimaModificacao(dataPublicacao);
         resenhaDAO.inserir(resenha);
         return resenha.getId();
     }

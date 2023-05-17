@@ -1,7 +1,6 @@
 package Interface;
 
 import Controller.InterfaceController;
-import Domain.Autor;
 import Domain.Livro;
 import Domain.Resenha;
 import java.util.Date;
@@ -284,6 +283,7 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
                 //INSERE A RESENHA
                 int id = interfaceController.getDomainController().inserirResenha(avaliacao, texto, dataPublicacao, livro);
                 JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
             } else {
                 //ALTERA A RESENHA
                 interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, livro);

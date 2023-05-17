@@ -23,16 +23,16 @@ public class Resenha implements Serializable{
     @Column(name="texto", length=1500, nullable=false)
     private String texto;
     
-    @Column(name="data_publicacao", updatable=false)
+    @Column(name="data_publicacao", updatable=false, nullable=false)
     @Temporal(TemporalType.DATE)
     private Date dataPublicacao;
     
-    @Column(name="ultima_modificacao", updatable=false)
+    @Column(name="ultima_modificacao")
     @Temporal(TemporalType.DATE)
     private Date ultimaModificacao;
     
     @ManyToOne
-    @JoinColumn(name="id_livro")
+    @JoinColumn(name="id_livro", nullable=false)
     private Livro livro;
 
     public Resenha() {

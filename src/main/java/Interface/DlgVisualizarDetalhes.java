@@ -152,7 +152,7 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Data cadastro:");
+        jLabel2.setText("Data publicação:");
 
         txtDataPublicacao.setEnabled(false);
 

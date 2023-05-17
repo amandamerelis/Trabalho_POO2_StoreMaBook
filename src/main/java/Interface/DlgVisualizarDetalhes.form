@@ -293,7 +293,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data cadastro:"/>
+            <Property name="text" type="java.lang.String" value="Data publica&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDataPublicacao">
