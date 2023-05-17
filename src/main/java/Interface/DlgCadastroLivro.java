@@ -502,8 +502,8 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
     }//GEN-LAST:event_lblCapaMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        interfaceController.carregarComboBoxAutores(comboBoxAutores, Autor.class);
-        interfaceController.carregarComboBoxGeneros(comboBoxGeneros, Genero.class);
+        interfaceController.carregarComboBox(comboBoxAutores, Autor.class);
+        interfaceController.carregarComboBox(comboBoxGeneros, Genero.class);
         comboBoxAutores.setSelectedIndex(-1);
         comboBoxGeneros.setSelectedIndex(-1);
     }//GEN-LAST:event_formComponentShown

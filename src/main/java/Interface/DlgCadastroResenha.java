@@ -302,7 +302,7 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        interfaceController.carregarComboBoxLivros(comboBoxLivros, Livro.class);
+        interfaceController.carregarComboBox(comboBoxLivros, Livro.class);
         comboBoxLivros.setSelectedIndex(-1);
     }//GEN-LAST:event_formComponentShown
 

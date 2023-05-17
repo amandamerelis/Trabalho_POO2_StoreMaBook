@@ -72,31 +72,12 @@ public class InterfaceController {
         return dlg;
     }
 
-    public void carregarComboBoxAutores(JComboBox comboBox, Class classe) {
+    public void carregarComboBox(JComboBox comboBox, Class classe) {
         try {
-            List<Autor> lista = domainController.listar(classe);
+            List lista = domainController.listar(classe);
             comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
         } catch (HibernateException erro) {
-            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os autores.");
-        }
-    }
-
-    public void carregarComboBoxGeneros(JComboBox comboBox, Class classe) {
-        try {
-            List<Genero> lista = domainController.listar(classe);
-            comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
-        } catch (HibernateException erro) {
-            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os generos.");
-            throw new HibernateException(erro);
-        }
-    }
-
-    public void carregarComboBoxLivros(JComboBox comboBox, Class classe) {
-        try {
-            List<Livro> lista = domainController.listar(classe);
-            comboBox.setModel(new DefaultComboBoxModel(lista.toArray()));
-        } catch (HibernateException erro) {
-            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os livros.");
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os dados.");
         }
     }
 
