@@ -18,7 +18,7 @@ public class Genero implements Serializable{
     
     @Column(name="descricao", length=191, nullable=false)
     private String descricao;
-
+    
     public Genero() {
     }
 
@@ -27,7 +27,7 @@ public class Genero implements Serializable{
         return descricao;
     }
     public Object[] toArray() throws ParseException {
-        return new Object[]{this, descricao};
+        return new Object[]{this};
     }
     
     public Genero(String descricao) {
@@ -49,5 +49,27 @@ public class Genero implements Serializable{
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Genero other = (Genero) obj;
+        return this.id == other.id;
+    }
+
 }

@@ -47,13 +47,13 @@ public class MainFrame extends javax.swing.JFrame {
         MenuSuperior = new javax.swing.JMenuBar();
         MenuResenhas = new javax.swing.JMenu();
         MenuCadastrarResenha = new javax.swing.JMenuItem();
-        MenuPesquisarResenha = new javax.swing.JMenuItem();
+        MenuListarResenha = new javax.swing.JMenuItem();
         MenuLivros = new javax.swing.JMenu();
         MenuCadastrarLivro = new javax.swing.JMenuItem();
-        MenuPesquisarLivro = new javax.swing.JMenuItem();
+        MenuListarLivro = new javax.swing.JMenuItem();
         MenuAutores = new javax.swing.JMenu();
         MenuCadastrarAutor = new javax.swing.JMenuItem();
-        MenuPesquisarAutor = new javax.swing.JMenuItem();
+        MenuListarAutor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Store MaBook");
@@ -77,14 +77,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         MenuResenhas.add(MenuCadastrarResenha);
 
-        MenuPesquisarResenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icon-resenha-search-16.png"))); // NOI18N
-        MenuPesquisarResenha.setText("Pesquisar");
-        MenuPesquisarResenha.addActionListener(new java.awt.event.ActionListener() {
+        MenuListarResenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icon-resenha-search-16.png"))); // NOI18N
+        MenuListarResenha.setText("Listar");
+        MenuListarResenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuPesquisarResenhaActionPerformed(evt);
+                MenuListarResenhaActionPerformed(evt);
             }
         });
-        MenuResenhas.add(MenuPesquisarResenha);
+        MenuResenhas.add(MenuListarResenha);
 
         MenuSuperior.add(MenuResenhas);
 
@@ -99,14 +99,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         MenuLivros.add(MenuCadastrarLivro);
 
-        MenuPesquisarLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-book-search-16.png"))); // NOI18N
-        MenuPesquisarLivro.setText("Pesquisar");
-        MenuPesquisarLivro.addActionListener(new java.awt.event.ActionListener() {
+        MenuListarLivro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-book-search-16.png"))); // NOI18N
+        MenuListarLivro.setText("Listar");
+        MenuListarLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuPesquisarLivroActionPerformed(evt);
+                MenuListarLivroActionPerformed(evt);
             }
         });
-        MenuLivros.add(MenuPesquisarLivro);
+        MenuLivros.add(MenuListarLivro);
 
         MenuSuperior.add(MenuLivros);
 
@@ -121,14 +121,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         MenuAutores.add(MenuCadastrarAutor);
 
-        MenuPesquisarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-search-16.png"))); // NOI18N
-        MenuPesquisarAutor.setText("Pesquisar");
-        MenuPesquisarAutor.addActionListener(new java.awt.event.ActionListener() {
+        MenuListarAutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaceGrafica/images/icons-typewriter-search-16.png"))); // NOI18N
+        MenuListarAutor.setText("Listar");
+        MenuListarAutor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuPesquisarAutorActionPerformed(evt);
+                MenuListarAutorActionPerformed(evt);
             }
         });
-        MenuAutores.add(MenuPesquisarAutor);
+        MenuAutores.add(MenuListarAutor);
 
         MenuSuperior.add(MenuAutores);
 
@@ -164,21 +164,21 @@ public class MainFrame extends javax.swing.JFrame {
         interfaceController.abrirCadastroLivro();
     }//GEN-LAST:event_MenuCadastrarLivroActionPerformed
 
-    private void MenuPesquisarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarLivroActionPerformed
+    private void MenuListarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarLivroActionPerformed
         interfaceController.abrirPesquisarLivro();
-    }//GEN-LAST:event_MenuPesquisarLivroActionPerformed
+    }//GEN-LAST:event_MenuListarLivroActionPerformed
 
-    private void MenuPesquisarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarAutorActionPerformed
+    private void MenuListarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarAutorActionPerformed
         interfaceController.abrirPesquisarAutor();
-    }//GEN-LAST:event_MenuPesquisarAutorActionPerformed
+    }//GEN-LAST:event_MenuListarAutorActionPerformed
 
     private void MenuCadastrarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarResenhaActionPerformed
         interfaceController.abrirCadastroResenha();
     }//GEN-LAST:event_MenuCadastrarResenhaActionPerformed
 
-    private void MenuPesquisarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPesquisarResenhaActionPerformed
+    private void MenuListarResenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarResenhaActionPerformed
         interfaceController.abrirPesquisarResenha();
-    }//GEN-LAST:event_MenuPesquisarResenhaActionPerformed
+    }//GEN-LAST:event_MenuListarResenhaActionPerformed
 
     private void MenuCadastrarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarAutorActionPerformed
         interfaceController.abrirCadastroAutor();
@@ -190,10 +190,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuCadastrarAutor;
     private javax.swing.JMenuItem MenuCadastrarLivro;
     private javax.swing.JMenuItem MenuCadastrarResenha;
+    private javax.swing.JMenuItem MenuListarAutor;
+    private javax.swing.JMenuItem MenuListarLivro;
+    private javax.swing.JMenuItem MenuListarResenha;
     private javax.swing.JMenu MenuLivros;
-    private javax.swing.JMenuItem MenuPesquisarAutor;
-    private javax.swing.JMenuItem MenuPesquisarLivro;
-    private javax.swing.JMenuItem MenuPesquisarResenha;
     private javax.swing.JMenu MenuResenhas;
     private javax.swing.JMenuBar MenuSuperior;
     private javax.swing.JLabel imagem;

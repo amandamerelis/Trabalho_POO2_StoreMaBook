@@ -1,7 +1,6 @@
 package Controller;
 
 import Domain.Autor;
-import Domain.Genero;
 import Domain.Livro;
 import Domain.Resenha;
 import Interface.DlgCadastroAutor;
@@ -15,10 +14,8 @@ import Interface.MainFrame;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -72,6 +69,17 @@ public class InterfaceController {
         return dlg;
     }
 
+    public void carregarComboBoxLivros(JComboBox comboBox) {
+        try {
+            ArrayList<Livro> lista = new ArrayList<>(domainController.listar(Livro.class));
+            DefaultComboBoxModel model = new DefaultComboBoxModel(lista.toArray());
+            comboBox.setModel(model);
+        } catch (HibernateException erro) {
+            JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao carregar os dados.");
+        }
+    }
+    
+    
     public void carregarComboBox(JComboBox comboBox, Class classe) {
         try {
             List lista = domainController.listar(classe);
@@ -81,16 +89,18 @@ public class InterfaceController {
         }
     }
 
-    public void abrirVisualizarLeitura(Resenha resenha) {
-        /*if (janelaVisualizarLeitura != null) {
-            janelaVisualizarLeitura.setResenhaExibicao(resenha);
-        }*/
-        janelaVisualizarLeitura = (DlgVisualizarDetalhes) abrirJanela(janelaPrincipal, janelaVisualizarLeitura, DlgVisualizarDetalhes.class);
-        try {
-            janelaVisualizarLeitura.atualizar(resenha);
-        } catch (ParseException ex) {
-            Logger.getLogger(InterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+    public DlgVisualizarDetalhes abrirVisualizarLeitura(Resenha resenha) {
+        Class classe = DlgVisualizarDetalhes.class;
+        if (janelaVisualizarLeitura == null) {
+            try {
+                janelaVisualizarLeitura = (DlgVisualizarDetalhes) (JDialog) classe.getConstructor(Frame.class, boolean.class, InterfaceController.class).newInstance(janelaPrincipal, true, this); 
+            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                JOptionPane.showMessageDialog(janelaPrincipal, "Erro ao abrir a janela " + classe.getName());
+            }
         }
+        janelaVisualizarLeitura.setResenhaExibicao(resenha);
+        janelaVisualizarLeitura.setVisible(true);
+        return janelaVisualizarLeitura;
     }
 
     public void abrirCadastroLivro() {

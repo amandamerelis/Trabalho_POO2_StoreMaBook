@@ -5,7 +5,9 @@ import Domain.*;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.PersistenceException;
 import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
 
 public class DomainController {
 
@@ -22,38 +24,38 @@ public class DomainController {
         genericDAO = new GenericDAO();
     }
 
-    //--------------------------------------------------CRUD LIVROS
-    public int inserirLivro(String titulo, Date dataLancamento, String sinopse, byte[] capa, Autor autor, Genero genero) {
-        Livro livro = new Livro(titulo, dataLancamento, sinopse, capa, autor, genero);
-        livroDAO.inserir(livro);
-        return livro.getId();
-    }
-
+    
+     //--------------------------------------------------OPERAÇÕES GENÉRICAS
     public List listar(Class classe) throws HibernateException {
         return genericDAO.listar(classe);
     }
+    
+    public void excluir(Object obj) throws PersistenceException {
+        genericDAO.excluir(obj);
+    }
+    
+    //--------------------------------------------------CRUD LIVROS
+    public int inserirLivro(String titulo, Date dataLancamento, String sinopse, byte[] capa, Autor autor, Genero genero) {
+        Livro livro = new Livro(titulo, dataLancamento, sinopse, capa, autor, genero);
+        genericDAO.inserir(livro);
+        return livro.getId();
+    }
 
+    /*Por padrão, a opção 0 sempre será uma listagem de todos os registros*/
     public List<Livro> pesquisarLivros(String pesquisa, int tipo) {
         List<Livro> lista = null;
         switch (tipo) {
-            case 0:
-                lista = livroDAO.pesquisarPorTitulo(pesquisa);
-                break;
+            case 0 -> lista = genericDAO.listar(Livro.class);
+            
+            case 1 -> lista = livroDAO.pesquisarPorTitulo(pesquisa);
 
-            case 1:
-                lista = livroDAO.pesquisarPorAutor(pesquisa);
-                break;
+            case 2 -> lista = livroDAO.pesquisarPorAutor(pesquisa);
 
-            case 2:
-                lista = livroDAO.pesquisarPorID(pesquisa);
-                break;
-            case 3:
-                lista = livroDAO.pesquisarPorGenero(pesquisa);
-                break;
+            case 3 -> lista = livroDAO.pesquisarPorGenero(pesquisa);
         }
         return lista;
     }
-
+    
     public void alterarLivro(Livro livro, String titulo, Date dataLancamento, String sinopse, byte[] capa, Autor autor, Genero genero) {
         livro.setTitulo(titulo);
         livro.setDataLancamento(dataLancamento);
@@ -61,89 +63,52 @@ public class DomainController {
         livro.setCapa(capa);
         livro.setAutor(autor);
         livro.setGenero(genero);
-        livroDAO.alterar(livro);
+        genericDAO.alterar(livro);
     }
-
-    public void excluirLivro(Livro livro) {
-
-    }
-
+    
     //--------------------------------------------------CRUD AUTORES
     public int inserirAutor(String nome, Date dataNascimento) {
         Autor autor = new Autor(nome, dataNascimento);
-        autorDAO.inserir(autor);
+        genericDAO.inserir(autor);
         return autor.getId();
     }
-
-    public List<Autor> listarAutores() {
-        return null;
-    }
-
-    public List<Autor> pesquisarAutores(String pesquisa, int tipo) {
-        List<Autor> lista = null;
-        switch (tipo) {
-            case 0:
-                lista = autorDAO.pesquisarPorNome(pesquisa);
-                break;
-
-            case 1:
-                lista = autorDAO.pesquisarPorID(pesquisa);
-                break;
-        }
+    
+    public List<Autor> pesquisarAutores(String pesquisa) {
+        /*List<Autor> lista = autorDAO.pesquisarPorNome(pesquisa);*/
+        List<Autor> lista = autorDAO.listarAutoresETotalLivros(pesquisa);
         return lista;
     }
 
     public void alterarAutor(Autor autor, String nome, Date dataNascimento) {
         autor.setNome(nome);
         autor.setDataNascimento(dataNascimento);
-        autorDAO.alterar(autor);
-    }
-
-    public void excluirAutor(Autor autor) {
-
+        genericDAO.alterar(autor);
     }
 
     //--------------------------------------------------CRUD RESENHAS
     public int inserirResenha(String avaliacao, String texto, Date dataPublicacao, Livro livro) {
         Resenha resenha = new Resenha(avaliacao, texto, dataPublicacao, livro);
         resenha.setUltimaModificacao(dataPublicacao);
-        resenhaDAO.inserir(resenha);
+        genericDAO.inserir(resenha);
         return resenha.getId();
-    }
-
-    public List<Resenha> listarResenhas() {
-        return null;
     }
 
     public List<Resenha> pesquisarResenhas(String pesquisa, int tipo) {
         List<Resenha> lista = null;
         switch (tipo) {
-            case 0:
-                lista = resenhaDAO.pesquisarPorLivro(pesquisa);
-                break;
-
-            case 1:
-                lista = resenhaDAO.pesquisarPorAvaliacao(pesquisa);
-                break;
-            case 2:
-                lista = resenhaDAO.pesquisarPorID(pesquisa);
-                break;
+            case 0 -> lista = genericDAO.listar(Resenha.class);
+            case 1 -> lista = resenhaDAO.pesquisarPorLivro(pesquisa);
+            case 2 -> lista = resenhaDAO.pesquisarPorAutor(pesquisa);
+            case 3 -> lista = resenhaDAO.pesquisarPorAvaliacao(pesquisa);
         }
         return lista;
     }
 
-    public void alterarResenha(Resenha resenha, String avaliacao, String texto, Livro livro) {
+    public void alterarResenha(Resenha resenha, String avaliacao, String texto, Livro livro, Date dataAlteracao) {
         resenha.setAvaliacao(avaliacao);
         resenha.setTexto(texto);
         resenha.setLivro(livro);
-    }
-
-    public void excluirResenha(Resenha resenha) {
-
-    }
-
-    //--------------------------------------------------CRUD GENEROS
-    public List<Genero> listarGeneros() {
-        return null;
+        resenha.setUltimaModificacao(dataAlteracao);
+        genericDAO.alterar(resenha);
     }
 }

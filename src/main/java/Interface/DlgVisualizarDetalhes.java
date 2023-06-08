@@ -3,6 +3,8 @@ package Interface;
 import Controller.InterfaceController;
 import Domain.Resenha;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -11,12 +13,13 @@ import java.text.ParseException;
 public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
-    private Resenha resenhaExibicao = null;
+    private Resenha resenhaExibicao;
 
     public DlgVisualizarDetalhes(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) throws ParseException {
         super(parent, modal);
-        this.interfaceController = interfaceController;
         initComponents();
+        this.interfaceController = interfaceController;
+        this.resenhaExibicao = null;
     }
 
     /**
@@ -53,6 +56,11 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Ver detalhes");
@@ -74,6 +82,7 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
         jScrollPane1.setEnabled(false);
 
         txtSinopse.setColumns(20);
+        txtSinopse.setLineWrap(true);
         txtSinopse.setRows(5);
         txtSinopse.setEnabled(false);
         jScrollPane1.setViewportView(txtSinopse);
@@ -85,6 +94,7 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
         jScrollPane2.setEnabled(false);
 
         txtResenha.setColumns(20);
+        txtResenha.setLineWrap(true);
         txtResenha.setRows(5);
         txtResenha.setEnabled(false);
         jScrollPane2.setViewportView(txtResenha);
@@ -239,16 +249,20 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        try {
+            preencherDados(resenhaExibicao);
+        } catch (ParseException ex) {
+            Logger.getLogger(DlgVisualizarDetalhes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formComponentShown
+
     public Resenha getResenhaExibicao() {
         return resenhaExibicao;
     }
 
     public void setResenhaExibicao(Resenha resenhaExibicao) {
         this.resenhaExibicao = resenhaExibicao;
-    }
-
-    public void atualizar(Resenha resenha) throws ParseException {
-        preencherDados(resenha);
     }
 
     private void preencherDados(Resenha resenha) throws ParseException {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -26,9 +27,10 @@ public class Autor implements Serializable{
     private Date dataNascimento;
     
     @Transient
+    @Column(name="total_livros")
     private int totalLivrosCadastrados;
     
-    @OneToMany(mappedBy = "autor", fetch =  FetchType.LAZY)
+    @OneToMany(mappedBy = "autor", fetch = FetchType.EAGER)
     private List<Livro> livros;
 
     public Autor() {
@@ -38,9 +40,16 @@ public class Autor implements Serializable{
         this.nome = nome;
         this.dataNascimento = dataNascimento;
     }
+    
+    public Autor(int id, String nome, Date dataNascimento, int totalLivrosCadastrados) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.totalLivrosCadastrados = totalLivrosCadastrados;
+    }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{id, this, getFormattedDataNascimento(), totalLivrosCadastrados};
+        return new Object[]{this, getFormattedDataNascimento(), totalLivrosCadastrados};
     }
 
     @Override
@@ -84,4 +93,26 @@ public class Autor implements Serializable{
         this.totalLivrosCadastrados = totalLivrosCadastrados;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Autor other = (Autor) obj;
+        return this.id == other.id;
+    }
+    
 }

@@ -52,17 +52,18 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         txtTitulo = new javax.swing.JTextField();
         pnlDataLancamento = new javax.swing.JPanel();
         lblAutor = new javax.swing.JLabel();
-        comboBoxAutores = new javax.swing.JComboBox<>();
+        comboBoxAutores = new javax.swing.JComboBox();
         pnlSinopse = new javax.swing.JPanel();
         lblSinopse = new javax.swing.JLabel();
-        txtSinopse = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSinopse = new javax.swing.JTextArea();
         pnlCapa = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblCapa = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblGenero = new javax.swing.JLabel();
-        comboBoxGeneros = new javax.swing.JComboBox<>();
+        comboBoxGeneros = new javax.swing.JComboBox();
         btnCancelar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
         pnlDataLancamento1 = new javax.swing.JPanel();
@@ -76,6 +77,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -140,6 +146,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
         lblSinopse.setText("Sinopse");
 
+        txtSinopse.setColumns(20);
+        txtSinopse.setLineWrap(true);
+        txtSinopse.setRows(5);
+        jScrollPane1.setViewportView(txtSinopse);
+
         javax.swing.GroupLayout pnlSinopseLayout = new javax.swing.GroupLayout(pnlSinopse);
         pnlSinopse.setLayout(pnlSinopseLayout);
         pnlSinopseLayout.setHorizontalGroup(
@@ -147,10 +158,10 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
             .addGroup(pnlSinopseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlSinopseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSinopse)
                     .addGroup(pnlSinopseLayout.createSequentialGroup()
                         .addComponent(lblSinopse)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         pnlSinopseLayout.setVerticalGroup(
@@ -159,7 +170,7 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblSinopse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -218,10 +229,10 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxGeneros, 0, 241, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblGenero)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(comboBoxGeneros, 0, 241, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -229,9 +240,9 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblGenero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(comboBoxGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -286,6 +297,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
         btnAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAlterar.setText("ALTERAR");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -425,8 +441,9 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
     }
 
     private void preencherCampos(Livro livro) throws ParseException {
-        if (livro != null) {
+        if (livroSelecionado != null) {
             txtTitulo.setText(livro.getTitulo());
+            comboBoxAutores.setSelectedItem(livroSelecionado.getAutor());
             comboBoxGeneros.setSelectedItem(livro.getGenero());
             txtDataLancamento.setText(livro.getFormattedDataLancamento());
             txtSinopse.setText(livro.getSinopse());
@@ -438,7 +455,6 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
                 lblCapa.setText("CLIQUE PARA INSERIR");
                 lblCapa.setIcon(null);
             }
-
             habilitarBotoes();
         }
     }
@@ -449,10 +465,14 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         livroSelecionado = interfaceController.abrirPesquisarLivro();
-        try {
-            preencherCampos(livroSelecionado);
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, ex, "ERRO: LIVRO", JOptionPane.ERROR_MESSAGE);
+        if (livroSelecionado != null) {
+            try {
+                System.out.println("Livro: " + livroSelecionado.getTitulo() + ". Autor: "
+                        + livroSelecionado.getAutor() + ". Genero: " + livroSelecionado.getGenero() + ". Objeto: " + livroSelecionado);
+                preencherCampos(livroSelecionado);
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, ex, "ERRO: LIVRO", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
@@ -474,11 +494,11 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
                     //INSERE O LIVRO
                     int id = interfaceController.getDomainController().inserirLivro(titulo.toUpperCase(), dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + id + ") inserido com sucesso.", "Inserir Livro", JOptionPane.INFORMATION_MESSAGE);
-                    limparCampos();
                 } else {
-                    interfaceController.getDomainController().alterarLivro(livroSelecionado, titulo, dataLancamento, sinopse, capa, autor, genero);
+                    interfaceController.getDomainController().alterarLivro(livroSelecionado, titulo.toUpperCase(), dataLancamento, sinopse, capa, autor, genero);
                     JOptionPane.showMessageDialog(this, "Livro (" + livroSelecionado.getId() + ") alterado com sucesso.", "Alterar Livro", JOptionPane.INFORMATION_MESSAGE);
                 }
+                limparCampos();
             } catch (ParseException ex) {
                 Logger.getLogger(DlgCadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -508,15 +528,20 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
         comboBoxGeneros.setSelectedIndex(-1);
     }//GEN-LAST:event_formComponentShown
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+    }//GEN-LAST:event_formWindowClosed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JComboBox<String> comboBoxAutores;
-    private javax.swing.JComboBox<String> comboBoxGeneros;
+    private javax.swing.JComboBox comboBoxAutores;
+    private javax.swing.JComboBox comboBoxGeneros;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAutor;
     private javax.swing.JLabel lblCapa;
     private javax.swing.JLabel lblDataLancamento;
@@ -530,7 +555,7 @@ public class DlgCadastroLivro extends javax.swing.JDialog {
     private javax.swing.JPanel pnlSinopse;
     private javax.swing.JPanel pnlTitulo;
     private javax.swing.JFormattedTextField txtDataLancamento;
-    private javax.swing.JTextField txtSinopse;
+    private javax.swing.JTextArea txtSinopse;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,12 +2,18 @@ package Interface;
 
 import Controller.InterfaceController;
 import Domain.Livro;
+import java.awt.Component;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -17,12 +23,26 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
     private Livro livroSelecionado;
-    
+
     public DlgPesquisarLivro(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
         super(parent, modal);
         initComponents();
         this.interfaceController = interfaceController;
         livroSelecionado = null;
+
+        tblLivros.getColumnModel().getColumn(4).setCellRenderer(
+                new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                // OBJETO FINAL
+                JLabel label = new JLabel();
+                if (o != null) {
+                    label.setIcon(new ImageIcon((byte[]) o));
+                }
+                return label;
+            }
+        }
+        );
     }
 
     /**
@@ -44,8 +64,13 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Titulo", "Autor", "ID", "Genero" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Titulo", "Autor", "Genero" }));
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
@@ -62,7 +87,7 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Título", "Autor", "Data Lançamento", "Capa"
+                "Título", "Autor", "Gênero", "Data Lançamento", "Capa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -145,14 +170,13 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Livro getLivro(){
+    public Livro getLivro() {
         return livroSelecionado;
     }
-    
+
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
         try {
-
             int tipoPesquisa = cmbTipo.getSelectedIndex();
 
             if (txtPesq.getText().isEmpty()) {
@@ -160,7 +184,7 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
             }
 
             // LISTA VAI RECEBER O RESULTADO DA PESQUISA
-            List<Livro> lista = interfaceController.getDomainController().pesquisarLivros(txtPesq.getText(), tipoPesquisa);
+            List<Livro> lista = interfaceController.getDomainController().pesquisarLivros(txtPesq.getText().toUpperCase(), tipoPesquisa);
 
             // SETANDO O NÚMERO DE LINHAS DA TABELA PARA ZERO
             ((DefaultTableModel) tblLivros.getModel()).setNumRows(0);
@@ -176,34 +200,36 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSelecionar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionar3ActionPerformed
-
         int linha = tblLivros.getSelectedRow();
         if (linha >= 0) {
-            livroSelecionado = (Livro) tblLivros.getValueAt(linha, 1);
+            livroSelecionado = (Livro) tblLivros.getValueAt(linha, 0);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar livro", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        try {
+            int linha = tblLivros.getSelectedRow();
 
-        int linha = tblLivros.getSelectedRow();
+            if (linha >= 0) {
+                if (JOptionPane.showConfirmDialog(
+                        this,
+                        "Deseja realmente excluir?",
+                        "Excluir Livro",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-        if (linha >= 0) {
-            if (JOptionPane.showConfirmDialog(
-                    this,
-                    "Deseja realmente excluir?",
-                    "Excluir Livro",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    interfaceController.getDomainController().excluir((Livro) tblLivros.getValueAt(linha, 0));
+                    ((DefaultTableModel) tblLivros.getModel()).removeRow(linha);
 
-                interfaceController.getDomainController().excluirLivro((Livro) tblLivros.getValueAt(linha, 1));
-                ((DefaultTableModel) tblLivros.getModel()).removeRow(linha);
-
-                JOptionPane.showMessageDialog(this, "Livro excluído com sucesso.");
+                    JOptionPane.showMessageDialog(this, "Livro excluído com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Para excluir, selecione uma linha\n");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Para excluir, selecione uma linha\n");
+        } catch (PersistenceException erro) {
+            JOptionPane.showMessageDialog(this, "Não foi possível excluir este livro pois ele possui resenhas associadas a ele.\n");
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -211,6 +237,10 @@ public class DlgPesquisarLivro extends javax.swing.JDialog {
         livroSelecionado = null;
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        ((DefaultTableModel) tblLivros.getModel()).setNumRows(0);
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

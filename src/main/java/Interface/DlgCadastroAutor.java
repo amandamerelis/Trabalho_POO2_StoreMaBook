@@ -46,8 +46,14 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lblTituloDaPagina.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblTituloDaPagina.setText("StoreMaBook - Autor");
@@ -123,6 +129,11 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
 
         btnAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAlterar.setText("ALTERAR");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
@@ -131,6 +142,15 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(204, 0, 0));
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -146,12 +166,15 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                         .addGap(299, 299, 299)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(pnlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAlterar)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(pnlNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(114, 114, 114)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(pnlDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -179,7 +202,8 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
-                    .addComponent(btnAlterar))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -201,10 +225,10 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
                 }
                 else{
                     //ALTERA O AUTOR
-                    interfaceController.getDomainController().alterarAutor(autorSelecionado, nome, dataNascimento);
+                    interfaceController.getDomainController().alterarAutor(autorSelecionado, nome.toUpperCase(), dataNascimento);
                     JOptionPane.showMessageDialog(this, "Autor (" + autorSelecionado.getId() + ") alterado com sucesso.", "Alterar Autor", JOptionPane.INFORMATION_MESSAGE);
                 }
-                limparDados();
+                limparCampos();
             } catch (ParseException ex) {
                 Logger.getLogger(DlgCadastroLivro.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -220,9 +244,19 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void limparDados(){
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void limparCampos(){
         txtNome.setText("");
         txtDataNascimento.setText("");
+        autorSelecionado = null;
+        habilitarBotoes();
     }
     
     public void habilitarBotoes() {
@@ -269,6 +303,7 @@ public class DlgCadastroAutor extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JLabel jLabel1;

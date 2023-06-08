@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,7 +30,6 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbTipo = new javax.swing.JComboBox();
         txtPesq = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -37,10 +37,14 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
         btnSelecionar3 = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nome", "ID" }));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
@@ -57,11 +61,11 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Nome completo", "Data Nascimento", "Quantidade de livros cadastrados"
+                "Nome completo", "Data Nascimento", "Quantidade de livros cadastrados"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -97,6 +101,8 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("Pesquisar por nome:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,9 +112,9 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -125,8 +131,8 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(btnPesquisar)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
@@ -140,18 +146,14 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public Autor getAutor(){
+    public Autor getAutor() {
         return autorSelecionado;
     }
-    
+
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
-        int tipoPesquisa = cmbTipo.getSelectedIndex();
-        if (txtPesq.getText().isEmpty()) {
-            tipoPesquisa = 0;
-        }
         // LISTA VAI RECEBER O RESULTADO DA PESQUISA
-        List<Autor> lista = interfaceController.getDomainController().pesquisarAutores(txtPesq.getText(), tipoPesquisa);
+        List<Autor> lista = interfaceController.getDomainController().pesquisarAutores(txtPesq.getText().toUpperCase());
         // SETANDO O NÚMERO DE LINHAS DA TABELA PARA ZERO
         ((DefaultTableModel) tblAutores.getModel()).setNumRows(0);
         for (Autor autor : lista) {
@@ -165,35 +167,40 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSelecionar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionar3ActionPerformed
-
         int linha = tblAutores.getSelectedRow();
         if (linha >= 0) {
-            autorSelecionado = (Autor) tblAutores.getValueAt(linha, 1);
+            autorSelecionado = (Autor) tblAutores.getValueAt(linha, 0);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar autor", JOptionPane.ERROR_MESSAGE);
         }
-
+        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
         int linha = tblAutores.getSelectedRow();
 
-        if (linha >= 0) {
-            if (JOptionPane.showConfirmDialog(
-                    this,
-                    "Deseja realmente excluir?",
-                    "Excluir Autor",
-                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        try {
+            if (linha >= 0) {
+                if (JOptionPane.showConfirmDialog(
+                        this,
+                        "Deseja realmente excluir?",
+                        "Excluir Autor",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                interfaceController.getDomainController().excluirAutor((Autor) tblAutores.getValueAt(linha, 1));
-                ((DefaultTableModel) tblAutores.getModel()).removeRow(linha);
+                    interfaceController.getDomainController().excluir((Autor) tblAutores.getValueAt(linha, 0));
+                    ((DefaultTableModel) tblAutores.getModel()).removeRow(linha);
 
-                JOptionPane.showMessageDialog(this, "Autor excluído com sucesso.");
+                    JOptionPane.showMessageDialog(this, "Autor excluído com sucesso.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Para excluir, selecione uma linha\n");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Para excluir, selecione uma linha\n");
+        } catch (PersistenceException erro) {
+            JOptionPane.showMessageDialog(this, "Não foi possível excluir este autor pois ele possui livros cadastrados.\n");
         }
+
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -201,12 +208,16 @@ public class DlgPesquisarAutor extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        ((DefaultTableModel) tblAutores.getModel()).setNumRows(0);
+    }//GEN-LAST:event_formComponentShown
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSelecionar3;
-    private javax.swing.JComboBox cmbTipo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAutores;
     private javax.swing.JTextField txtPesq;

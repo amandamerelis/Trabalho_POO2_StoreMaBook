@@ -16,13 +16,13 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         super(parent, modal);
         this.interfaceController = interfaceController;
         initComponents();
-        popularComboBoxes();
+        popularComboBoxAvaliacao();
         habilitarBotoes();
     }
 
-    private void popularComboBoxes() {
+    private void popularComboBoxAvaliacao() {
         DefaultComboBoxModel model;
-        String[] avaliacao = new String[]{"1 Estrela", "2 Estrelas", "3 Estrelas", "4 Estrelas", "5 Estrelas"};
+        String[] avaliacao = new String[]{"1 ESTRELA", "2 ESTRELAS", "3 ESTRELAS", "4 ESTRELAS", "5 ESTRELAS"};
         model = new DefaultComboBoxModel(avaliacao);
         comboBoxAvaliacao.setModel(model);
         comboBoxAvaliacao.setSelectedIndex(-1);
@@ -34,13 +34,13 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
 
         pnlTitulo = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        comboBoxLivros = new javax.swing.JComboBox<>();
+        comboBoxLivros = new javax.swing.JComboBox();
         pnlAutor = new javax.swing.JPanel();
         lblAutor = new javax.swing.JLabel();
         txtAutor = new javax.swing.JTextField();
         pnlAvaliacao = new javax.swing.JPanel();
         lblAvaliacao = new javax.swing.JLabel();
-        comboBoxAvaliacao = new javax.swing.JComboBox<>();
+        comboBoxAvaliacao = new javax.swing.JComboBox();
         btnSalvar = new javax.swing.JButton();
         lblTituloDaPagina = new javax.swing.JLabel();
         pnlResenha = new javax.swing.JPanel();
@@ -59,15 +59,20 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
                 formComponentShown(evt);
             }
         });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         pnlTitulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTitulo.setText("Título");
 
-        comboBoxLivros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxLivrosActionPerformed(evt);
+        comboBoxLivros.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                comboBoxLivrosPropertyChange(evt);
             }
         });
 
@@ -78,10 +83,10 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
             .addGroup(pnlTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboBoxLivros, 0, 576, Short.MAX_VALUE)
                     .addGroup(pnlTituloLayout.createSequentialGroup()
                         .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(comboBoxLivros, 0, 576, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlTituloLayout.setVerticalGroup(
@@ -170,6 +175,7 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         lblResenha.setText("Resenha");
 
         txtResenha.setColumns(20);
+        txtResenha.setLineWrap(true);
         txtResenha.setRows(5);
         jScrollPane2.setViewportView(txtResenha);
 
@@ -207,6 +213,11 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
 
         btnAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAlterar.setText("ALTERAR");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
@@ -276,19 +287,19 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         Livro livro = (Livro) comboBoxLivros.getSelectedItem();
         String avaliacao = (String) comboBoxAvaliacao.getSelectedItem();
         String texto = txtResenha.getText();
-        Date dataPublicacao = new Date();
+        Date data = new Date();
 
         if (validarDados()) {
             if (resenhaSelecionada == null) {
                 //INSERE A RESENHA
-                int id = interfaceController.getDomainController().inserirResenha(avaliacao, texto, dataPublicacao, livro);
+                int id = interfaceController.getDomainController().inserirResenha(avaliacao, texto, data, livro);
                 JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
-                limparCampos();
             } else {
                 //ALTERA A RESENHA
-                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, livro);
+                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, livro, data);
                 JOptionPane.showMessageDialog(this, "Resenha (" + resenhaSelecionada.getId() + ") alterada com sucesso.", "Alterar Resenha", JOptionPane.INFORMATION_MESSAGE);
             }
+            limparCampos();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -298,25 +309,33 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         resenhaSelecionada = interfaceController.abrirPesquisarResenha();
-        preencherCampos(resenhaSelecionada);
+        if (resenhaSelecionada != null) {
+            preencherCampos(resenhaSelecionada);
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        interfaceController.carregarComboBox(comboBoxLivros, Livro.class);
+        interfaceController.carregarComboBoxLivros(comboBoxLivros);
         comboBoxLivros.setSelectedIndex(-1);
+        txtAutor.setText("");
     }//GEN-LAST:event_formComponentShown
 
-    private void comboBoxLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLivrosActionPerformed
-        if (comboBoxLivros.getSelectedItem() != null) {
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void comboBoxLivrosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxLivrosPropertyChange
+        if(comboBoxLivros.getSelectedItem() != null){
             Livro livro = (Livro) comboBoxLivros.getSelectedItem();
             txtAutor.setText(livro.getAutor().getNome());
+        } else {
+            txtAutor.setText("");
         }
-
-    }//GEN-LAST:event_comboBoxLivrosActionPerformed
+    }//GEN-LAST:event_comboBoxLivrosPropertyChange
 
     private void preencherCampos(Resenha resenha) {
         if (resenha != null) {
-            comboBoxLivros.setSelectedItem(resenha.getLivro());
+            comboBoxLivros.setSelectedItem((Livro) resenha.getLivro());
             comboBoxAvaliacao.setSelectedItem(resenha.getAvaliacao());
             txtAutor.setText(resenha.getLivro().getAutor().getNome());
             txtResenha.setText(resenha.getTexto());
@@ -375,8 +394,8 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JComboBox<String> comboBoxAvaliacao;
-    private javax.swing.JComboBox<String> comboBoxLivros;
+    private javax.swing.JComboBox comboBoxAvaliacao;
+    private javax.swing.JComboBox comboBoxLivros;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAutor;
     private javax.swing.JLabel lblAvaliacao;

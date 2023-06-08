@@ -49,6 +49,11 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
         btnDetalhes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         btnSelecionar3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSelecionar3.setForeground(new java.awt.Color(0, 102, 51));
@@ -76,7 +81,7 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
             }
         });
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Livro", "ID" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Livro", "Autor", "Avaliacao" }));
 
         btnPesquisar.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnPesquisar.setForeground(new java.awt.Color(0, 0, 102));
@@ -161,14 +166,13 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSelecionar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionar3ActionPerformed
-
         int linha = tblResenhas.getSelectedRow();
         if (linha >= 0) {
-            resenhaSelecionada = (Resenha) tblResenhas.getValueAt(linha, 1);
+            resenhaSelecionada = (Resenha) tblResenhas.getValueAt(linha, 0);
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "Pesquisar resenha", JOptionPane.ERROR_MESSAGE);
         }
-
+        this.setVisible(false);
     }//GEN-LAST:event_btnSelecionar3ActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -182,10 +186,12 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
                     "Excluir Resenha",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                interfaceController.getDomainController().excluirResenha((Resenha) tblResenhas.getValueAt(linha, 0));
+                interfaceController.getDomainController().excluir((Resenha) tblResenhas.getValueAt(linha, 0));
                 ((DefaultTableModel) tblResenhas.getModel()).removeRow(linha);
 
                 JOptionPane.showMessageDialog(this, "Resenha excluída com sucesso.");
+
+                this.setVisible(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Para excluir, selecione uma linha\n");
@@ -204,7 +210,8 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
             tipoPesquisa = 0;
         }
         // LISTA VAI RECEBER O RESULTADO DA PESQUISA
-        List<Resenha> lista = interfaceController.getDomainController().pesquisarResenhas(txtPesq.getText(), tipoPesquisa);
+        List<Resenha> lista = interfaceController.getDomainController().pesquisarResenhas(txtPesq.getText().toUpperCase(), tipoPesquisa);
+
         // SETANDO O NÚMERO DE LINHAS DA TABELA PARA ZERO
         ((DefaultTableModel) tblResenhas.getModel()).setNumRows(0);
         for (Resenha resenha : lista) {
@@ -221,13 +228,15 @@ public class DlgPesquisarResenha extends javax.swing.JDialog {
         int linha = tblResenhas.getSelectedRow();
 
         if (linha >= 0) {
-            this.setVisible(false);
-            interfaceController.abrirVisualizarLeitura((Resenha) tblResenhas.getValueAt(linha, 1));
+            interfaceController.abrirVisualizarLeitura((Resenha) tblResenhas.getValueAt(linha, 0));
         } else {
             JOptionPane.showMessageDialog(this, "Selecione uma resenha para visualizar os detalhes\n");
         }
-
     }//GEN-LAST:event_btnDetalhesActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        ((DefaultTableModel) tblResenhas.getModel()).setNumRows(0);
+    }//GEN-LAST:event_formComponentShown
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

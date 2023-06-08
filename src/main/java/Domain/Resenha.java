@@ -3,36 +3,36 @@ package Domain;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
  *
  * @author AMANDA MERELIS
  */
-
 @Entity
-public class Resenha implements Serializable{
-    
+public class Resenha implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @Column(name="avaliacao", length=15, nullable=false)
+
+    @Column(name = "avaliacao", length = 15, nullable = false)
     private String avaliacao;
-    
-    @Column(name="texto", length=1500, nullable=false)
+
+    @Column(name = "texto", length = 1500, nullable = false)
     private String texto;
-    
-    @Column(name="data_publicacao", updatable=false, nullable=false)
+
+    @Column(name = "data_publicacao", updatable = false, nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataPublicacao;
-    
-    @Column(name="ultima_modificacao")
+
+    @Column(name = "ultima_modificacao")
     @Temporal(TemporalType.DATE)
     private Date ultimaModificacao;
-    
-    @ManyToOne
-    @JoinColumn(name="id_livro", nullable=false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_livro", nullable = false)
     private Livro livro;
 
     public Resenha() {
@@ -46,24 +46,22 @@ public class Resenha implements Serializable{
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{this, livro, avaliacao, getFormattedDataPublicacao()};
+        return new Object[]{this, livro, livro.getAutor(), avaliacao, getFormattedDataPublicacao()};
     }
 
     @Override
     public String toString() {
         return String.valueOf(id);
     }
-    
-    
-    
-    public String getFormattedDataPublicacao() throws ParseException{
+
+    public String getFormattedDataPublicacao() throws ParseException {
         return Controller.FuncoesUteis.dateToStr(dataPublicacao);
     }
-    
-    public String getFormattedUltimaModificacao() throws ParseException{
+
+    public String getFormattedUltimaModificacao() throws ParseException {
         return Controller.FuncoesUteis.dateToStr(ultimaModificacao);
     }
-    
+
     public int getId() {
         return id;
     }
@@ -111,5 +109,29 @@ public class Resenha implements Serializable{
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resenha other = (Resenha) obj;
+        return this.id == other.id;
+    }
+
     
+
 }

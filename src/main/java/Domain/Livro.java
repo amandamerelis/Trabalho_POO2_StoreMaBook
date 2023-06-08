@@ -31,15 +31,15 @@ public class Livro implements Serializable{
     @Lob
     private byte[] capa;
     
-    @ManyToOne
-    @JoinColumn(name="id_autor")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id_autor", nullable=false)
     private Autor autor;
     
-    @ManyToOne
-    @JoinColumn(name="id_genero")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="id_genero", nullable=false)
     private Genero genero;
     
-    @OneToMany(mappedBy = "livro", fetch =  FetchType.LAZY)
+    @OneToMany(mappedBy = "livro", fetch = FetchType.EAGER)
     private List<Resenha> resenhas;
 
     public Livro() {
@@ -55,7 +55,7 @@ public class Livro implements Serializable{
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{id, this, titulo, autor, getFormattedDataLancamento(), capa};
+        return new Object[]{this, autor, genero, getFormattedDataLancamento(), capa};
     }
 
     @Override
@@ -130,5 +130,27 @@ public class Livro implements Serializable{
     public void setResenhas(List<Resenha> resenhas) {
         this.resenhas = resenhas;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Livro other = (Livro) obj;
+        return this.id == other.id;
+    }
+
 }
