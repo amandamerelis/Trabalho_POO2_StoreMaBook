@@ -1,22 +1,12 @@
 package DAO;
 
 import Domain.Autor;
-import Domain.Livro;
 import java.math.BigInteger;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
@@ -75,15 +65,16 @@ public class AutorDAO extends GenericDAO {
         try {
             sessao = HibernateConnection.getSessionFactory().openSession();
             sessao.beginTransaction();
-            
-            Query query = sessao.createNativeQuery("SELECT a.id, a.nome, a.data_nascimento, "
+            String consultaSQL = "SELECT a.id, a.nome, a.data_nascimento, "
                     + "(SELECT COUNT(DISTINCT l.id) FROM Livro l WHERE l.id_autor = a.id) as total_livros "
                     + "FROM Autor a "
-                    + "WHERE a.nome LIKE '%" + pesquisa + "%' "
-                    + "ORDER BY a.nome ASC, total_livros DESC;");
+                    + "WHERE a.nome LIKE ?1 "
+                    + "ORDER BY a.nome ASC, total_livros DESC";
+            
+            Query query = sessao.createNativeQuery(consultaSQL)
+                    .setParameter(1, "%"+pesquisa+"%");
             
             List<Object[]> autores = query.getResultList();
-            
             
             for (Object[] a : autores) {
                 BigInteger contador = (BigInteger) a[3];

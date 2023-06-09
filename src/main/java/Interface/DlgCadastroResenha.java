@@ -70,9 +70,9 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblTitulo.setText("Título");
 
-        comboBoxLivros.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                comboBoxLivrosPropertyChange(evt);
+        comboBoxLivros.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBoxLivrosItemStateChanged(evt);
             }
         });
 
@@ -324,14 +324,14 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         limparCampos();
     }//GEN-LAST:event_formWindowClosed
 
-    private void comboBoxLivrosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_comboBoxLivrosPropertyChange
+    private void comboBoxLivrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxLivrosItemStateChanged
         if(comboBoxLivros.getSelectedItem() != null){
             Livro livro = (Livro) comboBoxLivros.getSelectedItem();
             txtAutor.setText(livro.getAutor().getNome());
         } else {
             txtAutor.setText("");
         }
-    }//GEN-LAST:event_comboBoxLivrosPropertyChange
+    }//GEN-LAST:event_comboBoxLivrosItemStateChanged
 
     private void preencherCampos(Resenha resenha) {
         if (resenha != null) {
