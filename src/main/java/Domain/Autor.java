@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -23,7 +22,7 @@ public class Autor implements Serializable{
     private String nome;
     
     @Column(name="data_nascimento", nullable=false)
-    @Temporal ( TemporalType.DATE)
+    @Temporal (TemporalType.DATE)
     private Date dataNascimento;
     
     @Transient

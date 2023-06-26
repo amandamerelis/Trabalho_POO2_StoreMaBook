@@ -17,11 +17,16 @@
             <artifactId>postgresql</artifactId>
             <version>42.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.5</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <exec.mainClass>trab.afm.trabalho_poo2_amandamerelis.Trabalho_POO2_AmandaMerelis</exec.mainClass>
     </properties>
 </project>

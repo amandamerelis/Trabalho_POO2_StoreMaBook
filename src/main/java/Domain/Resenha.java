@@ -3,7 +3,6 @@ package Domain;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -17,8 +16,8 @@ public class Resenha implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "avaliacao", length = 15, nullable = false)
-    private String avaliacao;
+    @Column(name = "avaliacao", nullable = false)
+    private int avaliacao;
 
     @Column(name = "texto", length = 1500, nullable = false)
     private String texto;
@@ -38,7 +37,7 @@ public class Resenha implements Serializable {
     public Resenha() {
     }
 
-    public Resenha(String avaliacao, String texto, Date dataPublicacao, Livro livro) {
+    public Resenha(int avaliacao, String texto, Date dataPublicacao, Livro livro) {
         this.avaliacao = avaliacao;
         this.texto = texto;
         this.dataPublicacao = dataPublicacao;
@@ -46,7 +45,7 @@ public class Resenha implements Serializable {
     }
 
     public Object[] toArray() throws ParseException {
-        return new Object[]{this, livro, livro.getAutor(), avaliacao, getFormattedDataPublicacao()};
+        return new Object[]{this, livro, livro.getAutor(), avaliacao + " ☆", getFormattedDataPublicacao()};
     }
 
     @Override
@@ -70,11 +69,11 @@ public class Resenha implements Serializable {
         this.id = id;
     }
 
-    public String getAvaliacao() {
+    public int getAvaliacao() {
         return avaliacao;
     }
 
-    public void setAvaliacao(String avaliacao) {
+    public void setAvaliacao(int avaliacao) {
         this.avaliacao = avaliacao;
     }
 

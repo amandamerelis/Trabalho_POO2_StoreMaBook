@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resenhasPorLivro" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e9bb1a27-f975-4aa4-98f9-75524c5daafa">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="texto" class="java.lang.String">
+		<fieldDescription><![CDATA[texto]]></fieldDescription>
+	</field>
+	<field name="formattedUltimaModificacao" class="java.lang.String">
+		<fieldDescription><![CDATA[formattedUltimaModificacao]]></fieldDescription>
+	</field>
+	<field name="formattedDataPublicacao" class="java.lang.String">
+		<fieldDescription><![CDATA[formattedDataPublicacao]]></fieldDescription>
+	</field>
+	<field name="livro" class="Domain.Livro">
+		<fieldDescription><![CDATA[livro]]></fieldDescription>
+	</field>
+	<field name="dataPublicacao" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPublicacao]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="avaliacao" class="java.lang.Integer">
+		<fieldDescription><![CDATA[avaliacao]]></fieldDescription>
+	</field>
+	<variable name="TOTAL_RESENHAS" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id}]]></variableExpression>
+	</variable>
+	<variable name="MEDIA_AVALIACAO" class="java.lang.Float" calculation="Average">
+		<variableExpression><![CDATA[$F{avaliacao}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="822" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="722" width="105" height="100" forecolor="#666666" backcolor="#666666" uuid="58048a65-569d-454e-b6dd-f3bb46c94ee3"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textField>
+					<reportElement x="0" y="41" width="104" height="30" uuid="31e82051-b085-4321-b668-47ac9cb6f2b3">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="15"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="2" y="65" width="103" height="22" uuid="adaebf52-2a35-451e-9d99-83f95877ef23">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="440" width="105" height="282" forecolor="#666666" backcolor="#666666" uuid="21c871b4-7717-4de0-8304-a281dce63df5"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<image>
+					<reportElement x="1" y="0" width="104" height="282" uuid="24f0eab3-8ef9-4e72-a643-2433b450a04a"/>
+					<imageExpression><![CDATA["src/main/resources/relatorios/waves.jpg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="175" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="190" y="0" width="365" height="115" uuid="524767a9-e7e5-4041-9b08-5a7210b38e22"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="54" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Store MaBook]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="135" y="90" width="420" height="30" uuid="bd605e96-6228-492c-9dd6-f33258081a5a"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="22"/>
+				</textElement>
+				<text><![CDATA[Relatório de resenhas do livro]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="120" width="555" height="30" forecolor="#666666" uuid="f33c24e5-05ce-415a-b283-660b95fb3880"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="22"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{livro}.getTitulo()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="458" height="20" backcolor="#666666" uuid="eb0fefed-b830-492b-a0c9-ec23411537a7"/>
+				<staticText>
+					<reportElement x="-1" y="0" width="36" height="20" forecolor="#FFFFFF" uuid="876212a7-d490-4651-be54-b5ed7988c6e0">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0cfb1d9-0dd6-496c-86a3-de7649bbeaa7"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<text><![CDATA[ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="41" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="b338cfcf-e2a2-402c-90c2-6dc52127b51a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c669dc92-c2bd-44ec-8a9e-24a136ce0fb2"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<text><![CDATA[Data publicação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="142" y="0" width="110" height="20" forecolor="#FFFFFF" uuid="c3760d0b-7224-4243-a6e1-a11b3ef74da2">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36c6d38f-74e4-4e5c-8c12-884217b12984"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<text><![CDATA[Data última modificação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="382" y="2" width="76" height="18" forecolor="#FFFFFF" uuid="060911ee-bfc9-43ae-b157-0c79a5b0cb0e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2281baed-2b4e-4713-b705-f78f3b4a494f"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<text><![CDATA[Avaliação]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement x="97" y="1" width="458" height="15" uuid="5d75be3e-ea39-4b96-baf8-b49497315044"/>
+				<textField>
+					<reportElement x="10" y="2" width="29" height="15" uuid="2c9669fe-5578-483d-a8cd-ed5a07f62ac5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0cfb1d9-0dd6-496c-86a3-de7649bbeaa7"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="142" y="2" width="100" height="14" uuid="2ca0dfa8-9cea-4e77-bd62-f1958b22ca2b">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36c6d38f-74e4-4e5c-8c12-884217b12984"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{formattedUltimaModificacao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="42" y="2" width="100" height="15" uuid="c9526971-3aa5-4df2-a6a2-dbddf1928a8d">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7baf5987-fcfe-464d-a130-9f4b0fc9b7cc"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{formattedDataPublicacao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="410" y="2" width="20" height="16" uuid="ea9a362f-8cf4-420d-aa01-f6ac91d4585f">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2281baed-2b4e-4713-b705-f78f3b4a494f"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[$F{avaliacao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="433" y="2" width="15" height="14" uuid="9750976e-3805-4245-9469-79806352b90e"/>
+					<text><![CDATA[☆]]></text>
+				</staticText>
+			</frame>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="18" width="458" height="1" uuid="2b97af27-2a1e-491f-a0f4-b2549a3510ee"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="100" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="97" y="20" width="131" height="20" forecolor="#000000" uuid="f8570c2f-4404-4725-885a-4eb3c26abb4a"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="96" y="0" width="84" height="20" forecolor="#000000" uuid="fce324aa-31f5-453a-a957-28bc6f740c75"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Store MaBook]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="370" y="0" width="30" height="20" uuid="4dcfd2de-5d9e-466d-be19-511c31a98dd8"/>
+				<textFieldExpression><![CDATA[$V{TOTAL_RESENHAS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="0" width="91" height="20" uuid="4eed8cf6-8ce2-4125-b8c1-28cf858f1c15"/>
+				<text><![CDATA[Total de resenhas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="90" height="20" uuid="b0cef969-cb18-4a86-8897-9eb22a855a0a"/>
+				<text><![CDATA[Média de avaliação:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="493" y="1" width="37" height="19" uuid="19cfa620-d9c6-4439-bd9e-19510ce8d5d3"/>
+				<textFieldExpression><![CDATA[$V{MEDIA_AVALIACAO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="530" y="1" width="15" height="14" uuid="1cb2805e-46d1-48b6-b81a-4fb7a3b46d9b"/>
+				<text><![CDATA[☆]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

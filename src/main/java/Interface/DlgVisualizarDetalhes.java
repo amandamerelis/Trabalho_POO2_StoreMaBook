@@ -272,9 +272,16 @@ public class DlgVisualizarDetalhes extends javax.swing.JDialog {
             txtGenero.setText(resenha.getLivro().getGenero().getDescricao());
             txtSinopse.setText(resenha.getLivro().getSinopse());
             txtResenha.setText(resenha.getTexto());
-            txtAvaliacao.setText(resenha.getAvaliacao());
             txtDataPublicacao.setText(resenha.getFormattedDataPublicacao());
             txtUltimaModificacao.setText(resenha.getFormattedUltimaModificacao());
+            
+            switch(resenha.getAvaliacao()){
+                case 1: txtAvaliacao.setText("1 ESTRELA");break;
+                case 2: txtAvaliacao.setText("2 ESTRELAS");break;
+                case 3: txtAvaliacao.setText("3 ESTRELAS");break;
+                case 4: txtAvaliacao.setText("4 ESTRELAS");break;
+                case 5: txtAvaliacao.setText("5 ESTRELAS");break;
+            }
         }
     }
 

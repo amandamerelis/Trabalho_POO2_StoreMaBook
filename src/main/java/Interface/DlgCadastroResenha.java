@@ -286,17 +286,25 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Livro livro = (Livro) comboBoxLivros.getSelectedItem();
         String avaliacao = (String) comboBoxAvaliacao.getSelectedItem();
+        int avaliacaoEmNumero = 0;
+        switch(avaliacao){
+                case "1 ESTRELA": avaliacaoEmNumero = 1;break;
+                case "2 ESTRELAS": avaliacaoEmNumero = 2;break;
+                case "3 ESTRELAS": avaliacaoEmNumero = 3;break;
+                case "4 ESTRELAS": avaliacaoEmNumero = 4;break;
+                case "5 ESTRELAS": avaliacaoEmNumero = 5;break;
+            }
         String texto = txtResenha.getText();
         Date data = new Date();
 
         if (validarDados()) {
             if (resenhaSelecionada == null) {
                 //INSERE A RESENHA
-                int id = interfaceController.getDomainController().inserirResenha(avaliacao, texto, data, livro);
+                int id = interfaceController.getDomainController().inserirResenha(avaliacaoEmNumero, texto, data, livro);
                 JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 //ALTERA A RESENHA
-                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacao, texto, livro, data);
+                interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacaoEmNumero, texto, livro, data);
                 JOptionPane.showMessageDialog(this, "Resenha (" + resenhaSelecionada.getId() + ") alterada com sucesso.", "Alterar Resenha", JOptionPane.INFORMATION_MESSAGE);
             }
             limparCampos();
@@ -336,9 +344,16 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
     private void preencherCampos(Resenha resenha) {
         if (resenha != null) {
             comboBoxLivros.setSelectedItem((Livro) resenha.getLivro());
-            comboBoxAvaliacao.setSelectedItem(resenha.getAvaliacao());
             txtAutor.setText(resenha.getLivro().getAutor().getNome());
             txtResenha.setText(resenha.getTexto());
+            switch(resenha.getAvaliacao()){
+                case 1: comboBoxAvaliacao.setSelectedItem("1 ESTRELA");break;
+                case 2: comboBoxAvaliacao.setSelectedItem("2 ESTRELAS");break;
+                case 3: comboBoxAvaliacao.setSelectedItem("3 ESTRELAS");break;
+                case 4: comboBoxAvaliacao.setSelectedItem("4 ESTRELAS");break;
+                case 5: comboBoxAvaliacao.setSelectedItem("5 ESTRELAS");break;
+            }
+            
             habilitarBotoes();
         }
     }

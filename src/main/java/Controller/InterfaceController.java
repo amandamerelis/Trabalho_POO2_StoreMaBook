@@ -35,10 +35,21 @@ public class InterfaceController {
 
     private DlgVisualizarDetalhes janelaVisualizarLeitura = null;
     private DomainController domainController = null;
+    private ReportController reportController = null;
 
+    private static InterfaceController interfaceController;
+    
+    public static InterfaceController getInstance(){
+        if(interfaceController == null){
+            return new InterfaceController();
+        }
+        return interfaceController;
+    }
+    
     private InterfaceController() {
         try {
             domainController = new DomainController();
+            reportController = new ReportController();
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(janelaPrincipal, "Erro de conexão com o banco. " + ex.getMessage());
             System.exit(-1);
@@ -47,6 +58,10 @@ public class InterfaceController {
 
     public DomainController getDomainController() {
         return domainController;
+    }
+
+    public ReportController getReportController() {
+        return reportController;
     }
 
     public void abrirJanelaPrincipal() {
@@ -60,7 +75,7 @@ public class InterfaceController {
     private JDialog abrirJanela(java.awt.Frame parent, JDialog dlg, Class classe) {
         if (dlg == null) {
             try {
-                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class, InterfaceController.class).newInstance(parent, true, this);
+                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class, InterfaceController.class).newInstance(parent, true, getInstance());
             } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 JOptionPane.showMessageDialog(parent, "Erro ao abrir a janela " + classe.getName());
             }

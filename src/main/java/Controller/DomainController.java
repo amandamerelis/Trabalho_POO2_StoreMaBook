@@ -45,13 +45,13 @@ public class DomainController {
     public List<Livro> pesquisarLivros(String pesquisa, int tipo) {
         List<Livro> lista = null;
         switch (tipo) {
-            case 0 -> lista = genericDAO.listar(Livro.class);
+            case 0: lista = genericDAO.listar(Livro.class); break;
             
-            case 1 -> lista = livroDAO.pesquisarPorTitulo(pesquisa);
+            case 1: lista = livroDAO.pesquisarPorTitulo(pesquisa);break;
 
-            case 2 -> lista = livroDAO.pesquisarPorAutor(pesquisa);
+            case 2: lista = livroDAO.pesquisarPorAutor(pesquisa);break;
 
-            case 3 -> lista = livroDAO.pesquisarPorGenero(pesquisa);
+            case 3: lista = livroDAO.pesquisarPorGenero(pesquisa);break;
         }
         return lista;
     }
@@ -86,7 +86,7 @@ public class DomainController {
     }
 
     //--------------------------------------------------CRUD RESENHAS
-    public int inserirResenha(String avaliacao, String texto, Date dataPublicacao, Livro livro) {
+    public int inserirResenha(int avaliacao, String texto, Date dataPublicacao, Livro livro) {
         Resenha resenha = new Resenha(avaliacao, texto, dataPublicacao, livro);
         resenha.setUltimaModificacao(dataPublicacao);
         genericDAO.inserir(resenha);
@@ -96,15 +96,15 @@ public class DomainController {
     public List<Resenha> pesquisarResenhas(String pesquisa, int tipo) {
         List<Resenha> lista = null;
         switch (tipo) {
-            case 0 -> lista = genericDAO.listar(Resenha.class);
-            case 1 -> lista = resenhaDAO.pesquisarPorLivro(pesquisa);
-            case 2 -> lista = resenhaDAO.pesquisarPorAutor(pesquisa);
-            case 3 -> lista = resenhaDAO.pesquisarPorAvaliacao(pesquisa);
+            case 0: lista = genericDAO.listar(Resenha.class);break;
+            case 1: lista = resenhaDAO.pesquisarPorLivro(pesquisa);break;
+            case 2: lista = resenhaDAO.pesquisarPorAutor(pesquisa);break;
+            case 3: lista = resenhaDAO.pesquisarPorAvaliacao(pesquisa);break;
         }
         return lista;
     }
 
-    public void alterarResenha(Resenha resenha, String avaliacao, String texto, Livro livro, Date dataAlteracao) {
+    public void alterarResenha(Resenha resenha, int avaliacao, String texto, Livro livro, Date dataAlteracao) {
         resenha.setAvaliacao(avaliacao);
         resenha.setTexto(texto);
         resenha.setLivro(livro);

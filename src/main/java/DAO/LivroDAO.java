@@ -32,12 +32,12 @@ public class LivroDAO extends GenericDAO {
 
             Predicate restricoes = null;
             switch (tipo) {
-                case 1 -> //pesquisar por Titulo
-                    restricoes = builder.like(tabela.get("titulo"), "%" + pesquisa + "%");
-                case 2 -> //pesquisar por Autor
-                    restricoes = builder.like(tabela.get("autor").get("nome"), "%" + pesquisa + "%");
-                case 3 -> //pesquisar por Gênero
-                    restricoes = builder.like(tabela.get("genero").get("descricao"), "%" + pesquisa + "%");
+                case 1: //pesquisar por Titulo
+                    restricoes = builder.like(tabela.get("titulo"), "%" + pesquisa + "%");break;                
+                case 2: //pesquisar por Autor
+                    restricoes = builder.like(tabela.get("autor").get("nome"), "%" + pesquisa + "%");break;
+                case 3: //pesquisar por Gênero
+                    restricoes = builder.like(tabela.get("genero").get("descricao"), "%" + pesquisa + "%");break;
             }
             
             //CLÁUSULA WHERE

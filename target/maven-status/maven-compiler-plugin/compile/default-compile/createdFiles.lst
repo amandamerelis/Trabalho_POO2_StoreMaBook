@@ -1,3 +1,4 @@
+Controller\ReportController.class
 Interface\DlgCadastroLivro$6.class
 DAO\LivroDAO.class
 Interface\DlgCadastroAutor$4.class
@@ -22,6 +23,7 @@ Interface\DlgCadastroResenha$4.class
 Interface\DlgCadastroAutor$3.class
 Interface\DlgPesquisarLivro$6.class
 Interface\DlgPesquisarResenha$7.class
+Interface\DlgPesquisarAutor$7.class
 Interface\DlgPesquisarAutor.class
 Interface\DlgCadastroResenha$1.class
 Interface\DlgCadastroLivro$3.class
@@ -39,6 +41,7 @@ Controller\InterfaceController.class
 Interface\DlgPesquisarAutor$6.class
 Interface\DlgCadastroResenha.class
 Interface\DlgPesquisarLivro$2.class
+Interface\DlgPesquisarLivro$8.class
 Interface\MainFrame$3.class
 Interface\DlgPesquisarResenha$4.class
 Controller\DomainController.class
