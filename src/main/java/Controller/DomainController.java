@@ -86,11 +86,11 @@ public class DomainController {
     }
 
     //--------------------------------------------------CRUD RESENHAS
-    public int inserirResenha(int avaliacao, String texto, Date dataPublicacao, Livro livro) {
+    public Resenha inserirResenha(int avaliacao, String texto, Date dataPublicacao, Livro livro) {
         Resenha resenha = new Resenha(avaliacao, texto, dataPublicacao, livro);
         resenha.setUltimaModificacao(dataPublicacao);
         genericDAO.inserir(resenha);
-        return resenha.getId();
+        return resenha;
     }
 
     public List<Resenha> pesquisarResenhas(String pesquisa, int tipo) {

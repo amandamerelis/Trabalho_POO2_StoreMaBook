@@ -3,6 +3,9 @@ package Interface;
 import Controller.InterfaceController;
 import Domain.Livro;
 import Domain.Resenha;
+import Observer.DadosResenhaObserver;
+import Observer.ResenhaSalvaObserver;
+import Observer.ResenhaSubject;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -11,12 +14,15 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
 
     private InterfaceController interfaceController;
     private Resenha resenhaSelecionada;
-
+    private ResenhaSubject resenhaSubject = new ResenhaSubject();
+  
     public DlgCadastroResenha(java.awt.Frame parent, boolean modal, InterfaceController interfaceController) {
         super(parent, modal);
         this.interfaceController = interfaceController;
         initComponents();
         popularComboBoxAvaliacao();
+        resenhaSubject.inscrever(new DadosResenhaObserver(resenhaSubject));
+        resenhaSubject.inscrever(new ResenhaSalvaObserver(resenhaSubject));
         habilitarBotoes();
     }
 
@@ -300,13 +306,12 @@ public class DlgCadastroResenha extends javax.swing.JDialog {
         if (validarDados()) {
             if (resenhaSelecionada == null) {
                 //INSERE A RESENHA
-                int id = interfaceController.getDomainController().inserirResenha(avaliacaoEmNumero, texto, data, livro);
-                JOptionPane.showMessageDialog(this, "Resenha (" + id + ") inserida com sucesso.", "Inserir Resenha", JOptionPane.INFORMATION_MESSAGE);
+                resenhaSelecionada = interfaceController.getDomainController().inserirResenha(avaliacaoEmNumero, texto, data, livro);
             } else {
                 //ALTERA A RESENHA
                 interfaceController.getDomainController().alterarResenha(resenhaSelecionada, avaliacaoEmNumero, texto, livro, data);
-                JOptionPane.showMessageDialog(this, "Resenha (" + resenhaSelecionada.getId() + ") alterada com sucesso.", "Alterar Resenha", JOptionPane.INFORMATION_MESSAGE);
             }
+            resenhaSubject.setState(resenhaSelecionada);
             limparCampos();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
